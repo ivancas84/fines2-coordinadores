@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <title>Contralor</title>
+  </head>
+<body>
+
+
+<table>
+<?
+foreach($rows as $row): $r = get_data($row); 
+?>
+<tr>
+  <td>Ad referendum</td>
+  <td><?=$r["profesor"]->cuilInicio()?></td>
+  <td><?=$r["profesor"]->cuilNumero()?></td>
+  <td><?=$r["profesor"]->cuilDigito()?></td>
+  <td></td>
+  <td><?=$r["profesor"]->fechaNacimiento()?></td>
+  <td><?=$r["profesor"]->nombre("AA, Nn")?></td>
+  <td>P</td>
+  <td></td>
+  <td><?=$r["asignatura"]->codigoONombre("X Y")?></td>
+  <td><?=$r["carga_horaria"]->horasCatedra()?></td>
+  <td>PF</td>
+  <td><?=$r["comision"]->anio()?></td>
+  <td><?=$r["comision"]->semestre()?></td>
+  <td><?=$r["division"]->turnoLetra()?></td>
+  <td><?=$r["toma"]->tipoMovimiento()?></td>
+  <td><?=$r["toma"]->fechaDesde("d")?></td>
+  <td><?=$r["toma"]->fechaDesde("m")?></td>
+  <td><?=$r["toma"]->fechaDesde("Y")?></td>
+  <td><?=$r["toma"]->fechaFin("d")?></td>
+  <td><?=$r["toma"]->fechaFin("m")?></td>
+  <td><?=$r["toma"]->fechaFin("Y")?></td>
+  <td><?=$r["toma"]->comentarioContralor()?></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+<?endforeach;?>
+</table>
+
+
+</body>
+</html>

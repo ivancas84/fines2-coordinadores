@@ -1,0 +1,27 @@
+<table class="table table-striped table-bordered table-hover table-sm border-black">
+  <thead class="thead-light">
+    <tr><th>NOMBRES</th><th>DNI</th><th>COMISION</th><th>DNI</th><th>CUIL</th><th>NAC</th><th>CERT</th><th>ING</th><th>OBSERVACIONES</th></tr>
+  </thead>
+  <tbody>
+<? foreach($alumnos as $row):
+  $nomina = new Nomina2Values($row);
+  $persona = new IdPersonaValues($row["persona_"]);
+  $comision = new ComisionValues($row["comision_"]);
+  $division = new DivisionValues($row["comision_"]["division_"]);
+
+?>
+    <tr>
+      <td><a href="infoAlumno.php?id=<?=$persona->id()?>"><?=$persona->nombreAANn()?></a></td>
+      <td><?=$persona->numeroDocumento()?></td>
+      <td><?=$division->numero()?>/<?=$comision->tramo()?></td>
+      <td><?=$nomina->fotocopiaDocumento()?></td>
+      <td><?=$nomina->constanciaCuil()?></td>
+      <td><?=$nomina->partidaNacimiento()?></td>
+      <td><?=$nomina->certificadoEstudios()?></td>
+      <td><?=$nomina->anioIngreso()?></td>
+      <td><?=$nomina->observaciones()?></td>
+
+    </tr>
+<? endforeach; ?>
+  </tbody>
+</table>

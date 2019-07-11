@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://marcelagalante.com.ar/jornada71/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>FINES 2</title>
+<style>
+
+table {
+
+
+}
+
+table, td, tr, th{
+  padding: 5px;
+  border-collapse: collapse;
+    border: 1px solid black;
+
+}
+
+.simple_border{
+    border: 1px solid black;
+}
+
+.borde_separador {
+  border-top: 2px solid red;
+}
+
+@media print
+{
+  table { page-break-after:always }
+
+}
+
+
+
+</style>
+</head>
+<body>
+
+<table>
+<? foreach($alumnos as $alumno): $d = get_data($alumno); ?>
+  <tr>
+    <td><?=$d["persona"]->nombre("AA")?></td>
+    <td><?=$d["persona"]->nombre("Nn")?></td>
+    <td><?=$d["persona"]->cuil()?></td>
+    <td><?=$d["persona"]->fechaNacimiento()?></td>
+    <td><?=$d["persona"]->genero("X Y")?></td>
+    <td><?=$d["comision"]->anio()?></td>
+    <td><?=$d["comision"]->semestre()?></td>
+    <td><?=$d["division"]->numero()?>/<?=$d["comision"]->tramo()?></td>
+    <td><?=$d["sede"]->nombre("XX YY")?></td>
+    <td>NO</td>
+    <td>NO</td>
+    <td><?=$d["nomina"]->programaSiNo()?></td>
+  </tr>
+<? endforeach; ?>
+</table>
+</body>
+</html>

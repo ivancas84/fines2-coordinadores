@@ -1,0 +1,16 @@
+<table class="table table-striped table-bordered table-hover table-sm border-black">
+<? foreach($rows as $row): $r = get_data($row); ?>
+<tr>
+  <td><?=$r["profesor"]->nombre("AA, Nn")?></td>
+  <td><?=$r["profesor"]->numeroDocumento()?></td>
+  <td><?=$r["division"]->numero()?>/<?=$r["comision"]->tramo()?></td>
+  <td><?=$r["toma"]->estado()?></td>
+  <td><?=$r["toma"]->fechaDesde()?></td>
+  <td><?=$r["asignatura"]->nombre()?></td>  
+  <td><a href="http://administracion.planfines2.com.ar/#/detailsCurso?id=<?=$r['curso']->id()?>">Administrar <?=$r['curso']->id()?></a></td>
+</tr>
+<?endforeach;?>
+</table>
+
+</body>
+</html>

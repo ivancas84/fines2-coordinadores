@@ -1,0 +1,46 @@
+<div class="card">
+  <div class="card-header">
+    <h3>Comision <?=$data["division"]->numero()?>/<?=$data["comision"]->tramo()?></h3>
+    <p><strong>Sede:</strong> <?=$data["sede"]->nombre()?></p>
+  </div>
+  <div class="card-body">
+  
+
+<table id="consolidado" class="table table-bordered table-hover table-sm border-black">
+    <thead class="thead-light">
+      <tr>
+        <td><strong>ALUMNO</strong></td>
+        <td><strong>DATOS</strong></td>
+        <td><strong>DOC</strong></td>
+        <td><strong>NAC</strong></td>
+        <td><strong>CUIL</strong></td>
+        <td><strong>EST</strong></td>
+        <td><strong>ING</strong></td>
+        <td><strong>OBSERVACIONES</strong></td>
+      </tr>
+    </thead>
+    <tbody>
+
+<? foreach($alumnos as $alumno): $a = $sqlo->values($alumno) ?>
+        <tr class="<?=$a['nomina2']->background()?>">
+            <td>
+              <p><?=$a["persona"]->apellidos("X")?> <?=$a["persona"]->nombres("Xx Yy")?></p>
+            </td>
+            <td>
+              <p><strong>DNI: </strong><?=$a["persona"]->numeroDocumento();?></p>
+              <p><strong>Nació: </strong><?=$a["persona"]->fechaNacimiento();?></p>
+              <p><strong>Tel: </strong><?=$a["persona"]->telefonos();?></p>
+            </td>
+            <td><?=$a['nomina2']->fotocopiaDocumento()?></td>
+            <td><?=$a['nomina2']->partidaNacimiento()?></td>
+            <td><?=$a['nomina2']->constanciaCuil()?></td>
+            <td><?=$a['nomina2']->certificadoEstudios()?></td>
+            <td><?=$a['nomina2']->anioIngreso()?></td>
+            <td><?=$a['nomina2']->observaciones()?></td>
+            
+<? endforeach; ?>
+      </tbody>
+    </table>  
+
+  </div>
+</div>

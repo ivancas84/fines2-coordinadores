@@ -1,0 +1,23 @@
+<div class="card card-body bg-light">
+  <h3>HORARIOS COMISION <?=$d["division"]->numero()?>/<?=$d["comision"]->tramo()?></h3>
+  <p><big>SEDE: </big><?=$d["sede"]->numero()?></p>
+  <p><big>DOMICILIO: </big><?=$d["domicilio"]->label()?></p>
+  <p><big>PLAN: </big><?=$d["plan"]->orientacion()?> <?=$d["plan"]->resolucion()?></p>
+</div> 
+<br>
+<table class="table table-striped table-bordered table-hover border-black table-sm">
+<? for($i = 0; $i < count($horarios); $i++): 
+  $h = get_data($horarios[$i]); ?>
+<tr class="<?=$h['background']?>">
+  <td><?=$i+1?></td>
+  <td><?=$h["asignatura"]->nombre()?> (<?=$h["carga_horaria"]->horasCatedra()?> / <?=$h["carga_horaria"]->horasReloj()?>)</td>
+  <td><?=$h["dia"]->dia()?></td>
+  <td><?=$h["horario"]->horaInicio()?> a <?=$h["horario"]->horaFin()?></td>
+  <td><?=$h["docente"]?></td>
+  <td><?=$h["telefonos"]?></td>
+
+
+</tr>
+
+<?endfor;?>
+</table>

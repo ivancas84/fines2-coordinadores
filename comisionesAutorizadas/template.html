@@ -1,0 +1,39 @@
+<? require("_periodoClasificacionOrden/template.html"); ?>
+<table class="table table-striped table-bordered table-hover table-sm border-black">
+  <thead class="thead-light">
+    <tr>
+    <th>#</th>
+    <th>COMISION</th>
+    <th>SEDE</th>
+    <th>DOMICILIO</th>
+    <th>TRAMO</th>
+    <th>COORDINADOR</th>
+    <th>PENDIENTE</th>
+    <th>HORARIOS</th>
+    </tr>
+  </thead>
+  <tbody>
+<?
+for($i = 0; $i < count($comisiones); $i++):
+  $com = new ComisionValues($comisiones[$i]);
+  $div = new DivisionValues($comisiones[$i]["division_"]);
+  $sed = new SedeValues($comisiones[$i]["division_"]["sede_"]);
+  $dom = new DomicilioValues($comisiones[$i]["division_"]["sede_"]["domicilio_"]);
+  $coo = isset($comisiones[$i]["division_"]["sede_"]["coordinador_"]) ? new IdPersonaValues($comisiones[$i]["division_"]["sede_"]["coordinador_"]) : new IdPersonaValues();
+  $pla = new PlanValues($comisiones[$i]["division_"]["plan_"]);
+
+?>
+
+<tr class="<?=$com->background()?>">
+  <td><?=$i+1?></td>
+  <td><strong><big><?=$div->numero() . "/" . $com->tramo()?></big></strong></td>
+  <td><?=$sed->nombre()?><strong>(<?=$sed->numero()?>)</strong></td>
+  <td class='simple_border'><?=$dom->label()?></td>
+  <td><?=$com->tramo("/")?> (<?=$pla->orientacion()?>) <?=$com->aperturaText()?></td>
+  <td><?=$coo->nombrePrincipal()?></td>
+  <td><?=$com->comentario()?></td>
+  <td><a href="<?=PATH_HTTP_SITE?>horariosComision/?id=<?=$com->id()?>"><?=$com->horario()?></a></td>  
+</tr>
+<?endfor;?>
+  </tbody>
+</table>

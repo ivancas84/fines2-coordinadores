@@ -1,0 +1,67 @@
+<table class="table table-striped table-bordered table-hover table-sm border-black">
+  <tr>
+    <th>Nombre:</th>
+    <td><?=$persona->nombre("AA, Nn")?></td>
+  </tr>
+  <tr>
+    <th>CUIL:</th>
+    <td><?=$persona->cuil()?></td>
+  </tr>
+  <tr>
+    <th>Fecha de Nacimiento:</th>
+    <td><?=$persona->fechaNacimiento("d/m/Y")?></td>
+  </tr>
+  <tr>
+    <th>Telefonos:</th>
+    <td><?=$persona->telefonos()?></td>
+  </tr>
+  <tr>
+    <th>Email:</th>
+    <td><?=$persona->email()?></td>
+  </tr>
+</table>
+
+
+<? if(!count($periodos)): ?>
+<strong>El docente no tiene tomas asignadas</strong>
+<? endif; ?>
+
+<? foreach($periodos as $periodo => $tomas): ?>
+  <h3>PERIODO: <?=$periodo?></h3>
+  <table class="table table-bordered table-hover table-sm border-black">
+      <thead class="thead-light">
+        <tr>
+          <th>SEDE</th>
+          <th>COMISION</th>
+          <th>ASIGNATURA</th>
+          <th>HS</th>
+          <th>HORARIO</th>
+          <th>FECHA TOMA</th>
+          <th>FECHA FIN</th>
+          <th>ESTADO</th>
+          <th>ESTADO CONTRALOR</th>
+          <th>FECHA CONTRALOR</th>
+        <tr>
+      </thead>
+      <tbody>
+<?  foreach($tomas as $toma):
+
+  $v = toma_values($toma); ?>
+        <tr class="<?=$v['toma']->background()?>">
+          <td><?=$v["sede"]->nombre()?></td>
+          <td><?=$v["division"]->numero()?>/<?=$v["comision"]->anio()?><?=$v["comision"]->semestre()?></td>
+          <td><?=$v["asignatura"]->nombre()?></li>
+          <td><?=$v["carga_horaria"]->horasCatedra()?></li>
+          <td><?=$v["curso"]->horario()?></li>
+          <td><?=$v["toma"]->fechaToma("d/m/Y")?></li>
+          <td><?=$v["toma"]->fechaFin("d/m/Y")?></li>
+          <td><?=$v["toma"]->estado()?></li>
+          <td><?=$v["toma"]->estadoContralor()?></li>
+          <td><?=$v["toma"]->fechaEntradaContralor("F/Y")?></li>
+        </tr>
+<?endforeach;?>
+      </tbody>
+    </table>
+
+
+<? endforeach; ?>

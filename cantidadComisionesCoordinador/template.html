@@ -1,0 +1,23 @@
+<? require_once("_periodoClasificacion/template.html"); ?>
+<table class="table table-striped table-bordered table-hover table-sm border-black">
+  <thead>
+    <tr>
+      <th>Coordinador</th>
+      <th>Cantidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <? foreach($rows as $row): $p = get_data($row); ?>
+    <tr>
+      <td><a href="<?=PATH_HTTP_SITE?>cantidadComisionesCoordinadorTramo?fecha_anio=<?=$fechaAnio?>&fecha_semestre=<?=$fechaSemestre?>&clasificacion=<?=$clasificacion?>&coordinador=<?=$p['persona']->id()?>"><?=$p["persona"]->nombrePrincipal()?></a></td>
+      <td><?=$p["cantidad"]?></td>
+    </tr>
+    <? endforeach; ?>
+    <tr>
+      <td>TOTAL</td>
+      <td><?=$total?></td>
+    </tr>
+  </tbody>
+</table>
+ 
+

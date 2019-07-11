@@ -1,0 +1,13 @@
+<table class="table table-striped table-bordered table-hover table-sm border-black">
+<? foreach($rows as $row): $r = get_data($row); ?>
+<tr>
+  <td><?=$r["division"]->numero()?>/<?=$r["comision"]->tramo()?></td>
+  <td><?=$r["division"]->turno()?></td>
+  <td><?=$r["comision"]->horario()?></td>
+  <td><a href="http://programacion.planfines2.com.ar/c/division-admin?id=<?=$r['division']->id()?>">Administrar <?=$r['division']->id()?></a></td>
+</tr>
+<?endforeach;?>
+</table>
+
+</body>
+</html>

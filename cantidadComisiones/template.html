@@ -1,0 +1,25 @@
+<? require_once("_periodoClasificacion/template.html"); ?>
+<table class="table table-striped table-bordered table-hover table-sm border-black">
+  <thead>
+    <tr>
+      <th>Anio</th>
+      <th>Semestre</th>
+      <th>Cantidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <? foreach($rows as $row): $p = get_data($row); ?>
+    <tr>
+      <td><?=$p["comision"]->anio()?></td>
+      <td><?=$p["comision"]->semestre()?></td>
+      <td><?=$p["cantidad"]?></td>
+    </tr>
+    <? endforeach; ?>
+    <tr>
+      <td colspan="2">TOTAL</td>
+      <td><?=$total?></td>
+    </tr>
+  </tbody>
+</table>
+ 
+

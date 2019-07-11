@@ -1,0 +1,37 @@
+<? require_once("_periodoClasificacion/template.html"); ?>
+
+<table id="sedes" class="table table-bordered table-hover table-sm border-black">
+    <thead class="thead-light">
+      <tr>
+        <th>SEDE</th>
+      </tr>
+    </thead>
+    <tbody>
+<? foreach($sedes as $sede): $d = SedeSqlo::getInstance()->values($sede); ?>
+      <tr>
+          <td>
+            <p><strong><?=$d["sede"]->numero()?></strong> <?=$d["sede"]->nombre()?></p>
+            <p><strong>Domicilio:</strong> <?=$d["domicilio"]->label()?></p>              
+            <p><strong>Coordinador:</strong> <?if($d["coordinador"]) echo $d["coordinador"]->nombrePrincipal()?></p>
+          </td>
+          <td>
+            <? if(key_exists($d["sede"]->id(), $sedesReferentes)): ?>
+            <table>
+              <? foreach($sedesReferentes[$d["sede"]->id()] as $sr): $r = ReferenteSqlo::getInstance()->values($sr); ?>
+              <tr>
+                <td>
+                  <p><?=$r["persona"]->apellidos("X") ?> <?=$r["persona"]->nombres("Xx Yy") ?></p>
+                  <p><?=$r["persona"]->email() ?></p>
+                  <p><?=$r["persona"]->telefonos() ?></p>
+                </td>                    
+              </tr>
+              <? endforeach; ?>
+            </table>
+            <? else: ?>
+            No existen referentes activos
+            <? endif ?>
+          </td>
+      </tr>
+<? endforeach; ?>
+  </tbody>
+</table>  

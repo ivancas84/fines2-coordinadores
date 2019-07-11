@@ -1,0 +1,25 @@
+<form class="form-inline"  method="GET">
+
+    <label for="fecha_anio">Fecha Año:</label>
+    <select name="fecha_anio" class="form-control">
+      <? foreach($fechaAnioOptions as $fao): 
+        $selected = ($fao == $fechaAnio) ? 'selected="selected"' : "";
+      ?>
+        <option value="<?=$fao?>" <?=$selected?>><?=$fao?></option>
+      <? endforeach; ?>
+    </select>
+    
+
+    <label for="fecha_semestre">Fecha Semestre:</label>
+    <select name="fecha_semestre" class="form-control">
+      <? foreach($fechaSemestreOptions as $fso): 
+        $selected = ($fso == $fechaSemestre) ? 'selected="selected"' : "";
+      ?>
+        <option value="<?=$fso?>" <?=$selected?>><?=$fso?></option>
+      <? endforeach; ?>
+    </select>
+    <label for="fecha_toma_desde">Fecha Toma Desde:</label>
+    <input type="text" name="fecha_toma_desde" class="form-control" placeholder="YYYY-MM-DD"/>
+    
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>

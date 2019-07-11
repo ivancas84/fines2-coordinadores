@@ -1,0 +1,25 @@
+<p><strong>COORDINADOR:</strong> <?=$persona->nombrePrincipal()?></p>
+<table class="table table-striped table-bordered table-hover table-sm border-black">
+  <thead>
+    <tr>
+      <th>Año</th>
+      <th>Semestre</th>
+      <th>Cantidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <? foreach($rows as $row): $p = get_data($row); ?>
+    <tr>
+      <td><?=$p["comision"]->anio()?></td>
+      <td><?=$p["comision"]->semestre()?></td>
+      <td><?=$p["cantidad"]?></td>
+    </tr>
+    <? endforeach; ?>
+    <tr>
+      <td colspan="2">TOTAL</td>
+      <td><?=$total?></td>
+    </tr>
+  </tbody>
+</table>
+ 
+

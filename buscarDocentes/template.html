@@ -1,0 +1,33 @@
+<? require("_buscar/index.html"); ?>
+<? if(!empty($rows)): ?>
+<br>
+<table class="table table-striped table-bordered table-hover table-sm border-black">
+  <thead class="thead-light">
+    <tr>
+      <th>NOMBRE</th>
+      <th>CUIL</th>
+      <th>EMAIL</th>
+      <th>TELEFONOS</th>
+      <th>FECHA NACIMIENTO</th>
+      <th>DETALLE</th>
+    </tr>
+  </thead>
+  <tbody>
+<? foreach($rows as $row): $profesor = new IdPersonaValues($row); ?>
+    <tr>
+      <td><?=$profesor->nombre("AA Nn")?></td>
+      <td><?=$profesor->cuil()?></td>
+      <td><?=$profesor->email()?></td>
+      <td><?=$profesor->telefonos()?></td>
+      <td><?=$profesor->fechaNacimiento("d/m/Y")?></td>
+      <td><a href="<?=PATH_HTTP_SITE?>infoDocente/?id=<?=$profesor->id()?>">Detalle</a></td>
+
+    </tr>
+
+<?  endforeach; ?>
+
+  </tbody>
+</table>
+<? else: ?>
+<p>No se ha encontrado el docente</p>
+<? endif; ?>

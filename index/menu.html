@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Fines 2 - <?=$title?></title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+  <script>
+function goBack() { window.history.back(); }
+
+
+function exportTableToExcel(tableID, filename = ''){
+	filename = (filename) ? filename : 'spreadsheet'
+	var uri = 'data:application/vnd.ms-excel;base64,'
+			, template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+			, base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+			, format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+
+			var table = 'tblReporte';
+			var name = 'filename';
+
+			 var table = document.getElementById(tableID)
+			 var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+
+			 var tmpElemento = document.createElement('a');
+			 tmpElemento.href =  uri + base64(format(template, ctx));
+			   tmpElemento.download = filename + '.xls';
+			   tmpElemento.click();
+			 }
+  </script>
+
+  <style>
+.border-black td, .border-black th { border-color: black; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <div class="navbar-brand">Coordinadores</div>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Comisiones</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="<?=PATH_HTTP_SITE?>consolidado">Consolidado</a>
+            <a class="dropdown-item" href="<?=PATH_HTTP_SITE?>comisionesAutorizadas">Comisiones Autorizadas</a>
+            <a class="dropdown-item" href="<?=PATH_HTTP_SITE?>sedesActivas">Sedes Activas</a>
+          </div>
+        </li>
+  
+  
+				<li class="nav-item">
+					<a class="nav-link" href="<?=PATH_HTTP_SITE?>buscarDocentes">Docentes</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="<?=PATH_HTTP_SITE?>buscarAlumnos">Alumnos</a>
+        </li>     
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">DEA</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="<?=PATH_HTTP_SITE?>sedesDea">Sedes</a>  
+            <a class="dropdown-item" href="<?=PATH_HTTP_SITE?>alumnosDea">Alumnos</a>
+            <a class="dropdown-item" href="<?=PATH_HTTP_SITE?>docentesDea">Docentes</a>                                
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Contralor</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="<?=PATH_HTTP_SITE?>contralor">Contralor</a>
+            <a class="dropdown-item" href="<?=PATH_HTTP_SITE?>controlCuil">Control CUIL</a>              
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Info</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="<?=PATH_HTTP_SITE?>cantidadComisiones">Cantidad de Comisiones</a>
+            <a class="dropdown-item" href="<?=PATH_HTTP_SITE?>cantidadComisionesCoordinador">Cantidad Comisiones Coordinador</a>
+            <a class="dropdown-item" href="http://programacion.planfines2.com.ar/info/distribucionHoraria/">Distribución Horaria</a>
+            <a class="dropdown-item" href="<?=PATH_HTTP_SITE?>emailReferentes/">Email referentes</a>
+            <a class="dropdown-item" href="<?=PATH_HTTP_SITE?>emailDocentes/">Email docentes</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid" style="overflow-x:scroll">
+      <?if(isset($content)) require($content)?>
+  </div>
+</body>
+</html>

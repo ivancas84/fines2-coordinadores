@@ -1,0 +1,29 @@
+<h2>Certificación de Servicios</h2>
+<p>La Dirección del CENS Nº 456 de la ciudad de La Plata, deja constancia que <?=$persona->apellidos("X")?>, <?=$persona->nombres("Xx Yy")?> DNI <?=$persona->numeroDocumento()?>, se desempeñó como Profesora del Programa FINES 2 en este establecimiento en los cargos que se detallan a continuación:</p>
+<br>
+<table class="border-black"  >
+  <thead >
+    <tr >
+      <th >Asignatura</th>
+      <th >Horas cátedra</th>
+      <th>Situación de revista</th>
+      <th>Desde</th>
+      <th>Hasta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <? foreach($tomas as $toma): $p = get_data($toma); ?>
+    <tr>
+      <td><?=$p["asignatura"]->nombre()?></td>
+      <td><?=$p["carga_horaria"]->horasCatedra()?></td>
+      <td>Provisional</td>
+      <td><?=$p["toma"]->fechaDesde()?></td>
+      <td><?=$p["toma"]->fechaFin()?></td>
+    </tr>
+    <? endforeach; ?>
+  </tbody>
+</table>
+<br>
+<p>Se extiende la presente en la ciudad de La Plata, a los <?=date("d")?> días del mes de <?=date("M")?> de <?=date("Y")?>, a efectos de ser presentada ante quien corresponda.</p>
+ 
+

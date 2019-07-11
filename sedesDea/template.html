@@ -1,0 +1,14 @@
+<table >
+  <tbody>
+<? foreach($sedes as $row):  
+   $d = get_data($row); ?>
+
+          <tr>
+            <td><?=$d["sede"]->nombre("XX YY")?></td>
+            <td><?=$d["domicilio"]->calle()?> e/ <?=$d["domicilio"]->entre()?> Nº <?=$d["domicilio"]->numero()?></td>
+            <td><?=$d["domicilio"]->barrio("XX YY")?> <?=$d["domicilio"]->localidad("XX YY")?></td>
+            <td><?=$d["sede"]->tipo("XX YY")?></td>
+          </tr>
+ <? endforeach; ?>
+  </tbody>
+</table>

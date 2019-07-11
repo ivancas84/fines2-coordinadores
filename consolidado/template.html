@@ -1,0 +1,55 @@
+<? require_once("_periodoClasificacion/template.html"); ?>
+
+<table id="consolidado" class="table table-bordered table-hover table-sm border-black">
+    <thead class="thead-light">
+      <tr>
+        <td><strong>SEDE</strong></td>
+        <td><strong>COMISION</strong></td>
+        <td><strong>CURSOS</strong></td>
+      </tr>
+    </thead>
+    <tbody>
+
+<? foreach($comisiones as $comision): $co = get_comision($comision) ?>
+        <tr>
+            <td>
+              <p><strong><?=$co["sede"]->numero()?></strong> <?=$co["sede"]->nombre()?></p>
+              <p><strong>Domicilio:</strong> <?=$co["domicilio"]->label()?></p>              
+              <p><strong>Coordinador:</strong> <?if($co["coordinador"]) echo $co["coordinador"]->nombrePrincipal()?></p>
+            </td>
+            <td>
+              <p><strong><?=$co["division"]->numero()?>/<?=$co["comision"]->tramo()?></strong></p>
+              <p><?=$co["plan"]->orientacion()?></p>
+              <p><?=$co["plan"]->resolucion()?></p>
+              <p><a class="btn btn-outline-primary btn-sm" href="alumnosComision.php?id=<?=$co["comision"]->id()?>"><?=$co["alumnos"]?> ALUMNOS</a></p>
+            </td>
+            <td>
+              <table>
+              <?foreach($comision as $curso): $cu = get_curso($curso)?>
+                <tr>
+                  <td><?=$cu["asignatura"]->nombre()?></td>
+                  <td><?=$cu["curso"]->horario()?></td>
+                  <td>
+                    <?if(key_exists($cu["curso"]->id(), $tomas)): foreach ($tomas[$cu["curso"]->id()] as $toma): $to = get_toma($toma) ?>
+                      <p class="<?=$to["toma"]->background()?>">
+                      <?if(is_string($to["profesor"])):?> 
+                      <?=$to["profesor"]?>
+                      <?else:?>
+                      <?=$to["profesor"]->apellidos("X")?>, <?=$to["profesor"]->nombres("Xx Yy")?> <strong><?=$to["toma"]->estadosAbr()?></strong>
+                      <br><?=$to["profesor"]->telefonos()?>
+                      <br><?=$to["profesor"]->email()?>
+                      <?endif;?>
+                    
+                      </p>  
+                    <?endforeach; else:?>                    
+                      <p>Sin Toma</p>
+                    <?endif?>
+                  </td>
+                </tr>
+              <?endforeach;?>
+              </table>
+            </td>
+        </tr>
+<? endforeach; ?>
+      </tbody>
+    </table>  

@@ -4,6 +4,12 @@ require_once("../config/config.php");
 require_once("class/model/Data.php");
 require_once("class/model/Render.php");
 require_once("config/valuesClasses.php");
+require_once("function/array_combine_keys.php");
+require_once("function/fecha_anios.php");
+require_once("function/fecha_semestres.php");
+require_once("function/clasificaciones.php");
+require_once("function/dependencias.php");
+require_once("function/ordenes.php");
 
 
 $dependencia_ = isset($_GET["dependencia"]) ? $_GET["dependencia"] : "Todos";
@@ -12,8 +18,6 @@ $fechaSemestre = isset($_GET["fecha_semestre"]) ? $_GET["fecha_semestre"] : ((in
 $clasificacion = isset($_GET["clasificacion"]) ? $_GET["clasificacion"] : "Fines";
 $dependencia = ($dependencia_ == "Todos") ?  $_SESSION["dependencia"] : $dependencia_;
 $orden = isset($_GET["orden"]) ? $_GET["orden"] : "Tramo" ;
-require_once("_periodoClasificacionOrden/options.php");
-
 
 $render = new Render();
 $render->setAdvanced(

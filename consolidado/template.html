@@ -10,7 +10,7 @@
     </thead>
     <tbody>
 
-<? foreach($comisiones as $comision): $co = get_comision($comision) ?>
+<? foreach($comisiones as $comision): $co = comision_values($comision) ?>
         <tr>
             <td>
               <p><strong><?=$co["sede"]->numero()?></strong> <?=$co["sede"]->nombre()?></p>
@@ -25,12 +25,12 @@
             </td>
             <td>
               <table>
-              <?foreach($comision as $curso): $cu = get_curso($curso)?>
+              <?foreach($comision as $curso): $cu = CursoSqlo::getInstance()->values($curso)?>
                 <tr>
                   <td><?=$cu["asignatura"]->nombre()?></td>
                   <td><?=$cu["curso"]->horario()?></td>
                   <td>
-                    <?if(key_exists($cu["curso"]->id(), $tomas)): foreach ($tomas[$cu["curso"]->id()] as $toma): $to = get_toma($toma) ?>
+                    <?if(key_exists($cu["curso"]->id(), $tomas)): foreach ($tomas[$cu["curso"]->id()] as $toma): $to = TomaSqlo::getInstance()->values($toma) ?>
                       <p class="<?=$to["toma"]->background()?>">
                       <?if(is_string($to["profesor"])):?> 
                       <?=$to["profesor"]?>

@@ -20,8 +20,6 @@ else  $fechaSemestre = (date("m") < 7) ? 1 : 2;
 $clasificacion = isset($_GET["clasificacion"]) ? $_GET["clasificacion"] : "Fines";
 $dependencia = ($dependencia_ == "Todos") ?  $_SESSION["dependencia"] : $dependencia_;
 
-
-
 $title = "Consolidado";
 
 $cursos = cursos($fechaAnio, $fechaSemestre, $dependencia, $clasificacion);
@@ -40,7 +38,6 @@ $content = "consolidado/template.html";
 require_once("index/menu.html");
 
 
-
 function cursos($fechaAnio, $fechaSemestre, $dependencia, $clasificacion){
   $filtros = [ //filtros para cursos
     ["com_fecha_anio", "=", $fechaAnio],
@@ -55,7 +52,7 @@ function cursos($fechaAnio, $fechaSemestre, $dependencia, $clasificacion){
   $render->setOrder(["com_dvi_sed_numero" => "ASC", "com_anio" => "ASC", "com_semestre" => "ASC"]);
 
   $sql = CursoSqlo::getInstance()->all($render);
-   return Dba::fetchAll($sql);
+  return Dba::fetchAll($sql);
 }
 
 function tomas($idCursos){
@@ -87,42 +84,15 @@ function cantidad_alumnos($idComisiones){
   return array_combine_key($cantidadAlumnos_, "comision");
 }
 
-
-function get_comision($comision) {
+function comision_values($comision) {
   global $cantidadAlumnos;
 
   $curso_ = reset($comision);
   $idComision = $curso_["comision"];
-  $curso = CursoSqlo::getInstance()->json($curso_);
-  $ret = [
-    "sede" => new SedeValues($curso["comision_"]["division_"]["sede_"]),
-    "domicilio" => new DomicilioValues($curso["comision_"]["division_"]["sede_"]["domicilio_"]),
-    "division" => new DivisionValues($curso["comision_"]["division_"]),
-    "comision" => new ComisionValues($curso["comision_"]),
-    "coordinador" => (!empty($toma["profesor_"])) ? new IdPersonaValues($curso["comision_"]["division_"]["sede_"]["coordinador_"]) : null,
-    "plan" => new PlanValues($curso["comision_"]["division_"]["plan_"]),
-    "alumnos" => key_exists($idComision, $cantidadAlumnos) ? $cantidadAlumnos[$idComision]["_cantidad"] : 0, 
-  ];
-
+  $ret = CursoSqlo::getInstance()->values($curso_);
+  $ret["alumnos"] = key_exists($idComision, $cantidadAlumnos) ? $cantidadAlumnos[$idComision]["_cantidad"] : 0; 
   return $ret;
 }
 
-function get_curso($curso) {
-  $c = CursoSqlo::getInstance()->json($curso);
 
-  $ret = [
-    "curso" => new CursoValues($c),
-    "asignatura" => new AsignaturaValues($c["carga_horaria_"]["asignatura_"]),
-  ];
 
-  return $ret;
-}
-
-function get_toma($toma) {
-  $toma = TomaSqlo::getInstance()->json($toma);
-  $ret = [
-    "toma" => new TomaValues($toma),
-    "profesor" => (!empty($toma["profesor_"])) ? new IdPersonaValues($toma["profesor_"]) : "Toma Sin Docente",
-  ];
-  return $ret;
-}

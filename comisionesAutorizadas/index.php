@@ -37,7 +37,8 @@ switch ($orden){
     case "Dependencia": $render->setOrder(["dependencia"=> "ASC", "dvi_sed_numero"=>"asc", "anio"=>"asc", "semestre"=>"asc"]); break;
     case "Coordinador": $render->setOrder(["dvi_sed_coo_nombres"=>"ASC", "dvi_sed_numero"=>"asc", "anio"=>"asc", "semestre"=>"asc"]); break;
 }
-$comisiones = Dba::all("comision",$render);
+$sql = ComisionSqlo::getInstance()->all($render);
+$comisiones = Dba::fetchAll($sql);
   
   
   

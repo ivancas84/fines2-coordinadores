@@ -1,4 +1,4 @@
-<? require("comisionesAutorizadas/formulario  .html"); ?>
+<? require("comisionesAutorizadas/formulario.html"); ?>
 <table class="table table-striped table-bordered table-hover table-sm border-black">
   <thead class="thead-light">
     <tr>
@@ -13,26 +13,16 @@
     </tr>
   </thead>
   <tbody>
-<?
-for($i = 0; $i < count($comisiones); $i++):
-  $com = new ComisionValues($comisiones[$i]);
-  $div = new DivisionValues($comisiones[$i]["division_"]);
-  $sed = new SedeValues($comisiones[$i]["division_"]["sede_"]);
-  $dom = new DomicilioValues($comisiones[$i]["division_"]["sede_"]["domicilio_"]);
-  $coo = isset($comisiones[$i]["division_"]["sede_"]["coordinador_"]) ? new IdPersonaValues($comisiones[$i]["division_"]["sede_"]["coordinador_"]) : new IdPersonaValues();
-  $pla = new PlanValues($comisiones[$i]["division_"]["plan_"]);
-
-?>
-
-<tr class="<?=$com->background()?>">
+<? for($i = 0; $i < count($comisiones); $i++): $c = ComisionSqlo::getInstance()->values($comisiones[$i]); ?>
+<tr class="<?=$c["comision"]->background()?>">
   <td><?=$i+1?></td>
-  <td><strong><big><?=$div->numero() . "/" . $com->tramo()?></big></strong></td>
-  <td><?=$sed->nombre()?><strong>(<?=$sed->numero()?>)</strong></td>
-  <td class='simple_border'><?=$dom->label()?></td>
-  <td><?=$com->tramo("/")?> (<?=$pla->orientacion()?>) <?=$com->aperturaText()?></td>
-  <td><?=$coo->nombrePrincipal()?></td>
-  <td><?=$com->comentario()?></td>
-  <td><a href="<?=PATH_HTTP_SITE?>horariosComision/?id=<?=$com->id()?>"><?=$com->horario()?></a></td>  
+  <td><strong><big><?=$c["division"]->numero() . "/" . $c["comision"]->tramo()?></big></strong></td>
+  <td><?=$c["sede"]->nombre()?><strong>(<?=$c["sede"]->numero()?>)</strong></td>
+  <td class='simple_border'><?=$c["domicilio"]->label()?></td>
+  <td><?=$c["comision"]->tramo("/")?> (<?=$c["plan"]->orientacion()?>) <?=$c["comision"]->aperturaText()?></td>
+  <td><?=$c["coordinador"]->nombrePrincipal()?></td>
+  <td><?=$c["comision"]->comentario()?></td>
+  <td><a href="<?=PATH_HTTP_SITE?>horariosComision/?id=<?=$c['comision']->id()?>"><?=$c["comision"]->horario()?></a></td>  
 </tr>
 <?endfor;?>
   </tbody>

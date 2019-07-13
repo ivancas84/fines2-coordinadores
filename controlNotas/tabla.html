@@ -1,0 +1,49 @@
+<table id="controlnotas">
+    <thead>
+      <tr>
+          <th>COM</th>
+          <th>NOMBRE</th>
+          <th>ASIGNATURA</th>
+          <th>HORARIO</th>
+          <th>APELLIDOS</th>
+          <th>NOMBRES</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+<? foreach($comisiones as $comision => $cursos): $co = CursoSqlo::getInstance()->values($cursos[0]) ?>
+        <tr>
+            <td rowspan="<?=count($cursos)?>"><?=$co["division"]->numero()?>/<?=$co["comision"]->tramo()?></td>
+            <td rowspan="<?=count($cursos)?>">
+              <?=$co["sede"]->nombre()?>
+              <br>
+              <?=$co["coordinador"]->nombrePrincipal()?>
+            </td>
+            <td><?=$co["asignatura"]->nombre()?></td>
+            <td><?=$co["curso"]->horario()?></td>
+            <td><?=$co["profesor"]->apellidos()?></td>
+            <td><?=$co["profesor"]->nombres()?></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <?for($i = 1; $i < count($cursos); $i++): $cu = CursoSqlo::getInstance()->values($cursos[$i])?>
+        <tr>
+          <td><?=$cu["asignatura"]->nombre()?></td>
+          <td><?=$cu["curso"]->horario()?></td>
+          <td><?=$cu["profesor"]->apellidos()?></td>
+          <td><?=$cu["profesor"]->nombres()?></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <?endfor;?>
+<? endforeach; ?>
+      </tbody>
+    </table>  

@@ -22,34 +22,37 @@ $dependencia = ($dependencia_ == "Todos") ?  $_SESSION["dependencia"] : $depende
 
 $title = "Sedes Activas";
 
-$render = new Render();
-$render->setAdvanced([
-    ["_fecha_anio", "=", $fechaAnio],
-    ["_fecha_semestre", "=", $fechaSemestre],
-    ["_autorizada", "=", true],
-    ["dependencia", "=", $dependencia],
-    ["_clasificacion_nombre", "=", $clasificacion]
-]);
-$sql = SedeSql::getInstance()->_subSql($render);
-$idSedes = array_column(Dba::fetchAll($sql), "id");
+$sedes = sedes($fechaAnio, $fechaSemestre, $clasificacion, $dependencia);
+if(!empty($sedes)){
+    $idSedes = array_column($sedes, "id");
+    $render = new Render();
+    $render->setAdvanced([
+        ["sede", "=", $idSedes],
+        ["baja", "=", false]
+    ]);
 
-
-$render = new Render();
-$render->setAdvanced(["id","=",$idSedes]);
-$render->setOrder(["numero" => "ASC"]);
-
-$sql = SedeSqlo::getInstance()->all($render);
-$sedes = Dba::fetchAll($sql);
-
-$render = new Render();
-$render->setAdvanced([
-    ["sede", "=", $idSedes],
-    ["baja", "=", false]
-]);
-
-$sql = ReferenteSqlo::getInstance()->all(["sede","=",$idSedes]);
-$referentes = Dba::fetchAll($sql);
-$sedesReferentes = array_group_value($referentes, "sede");
-
+    $sql = ReferenteSqlo::getInstance()->all(["sede","=",$idSedes]);
+    $referentes = Dba::fetchAll($sql);
+    $sedesReferentes = array_group_value($referentes, "sede");
+}
 $content = "sedesActivas/template.html";
 require_once("index/menu.html");
+
+function sedes($fechaAnio, $fechaSemestre, $clasificacion, $dependencia){
+    $filtros = [
+        "fecha_anio" => $fechaAnio,
+        "fecha_semestre" => $fechaSemestre,
+        "clasificacion_nombre" => $clasificacion,
+        "autorizada" => true,
+    ];
+    
+    $render = new Render();
+    $render->setAdvanced([
+        ["_filtros", "=", $filtros],
+        ["dependencia", "=", $dependencia],
+    ]);
+    $render->setOrder(["numero" => "ASC"]);
+    
+    $sql = SedeSqlo::getInstance()->all($render);
+    return Dba::fetchAll($sql);
+}

@@ -26,7 +26,7 @@ $sedes = sedes($fechaAnio, $fechaSemestre, $clasificacion, $dependencia);
 if(!empty($sedes)){
     $idSedes = array_column($sedes, "id");
     $render = new Render();
-    $render->setAdvanced([
+    $render->setCondition([
         ["sede", "=", $idSedes],
         ["baja", "=", false]
     ]);
@@ -47,7 +47,7 @@ function sedes($fechaAnio, $fechaSemestre, $clasificacion, $dependencia){
     ];
     
     $render = new Render();
-    $render->setAdvanced([
+    $render->setCondition([
         ["_filtros", "=", $filtros],
         ["dependencia", "=", $dependencia],
     ]);

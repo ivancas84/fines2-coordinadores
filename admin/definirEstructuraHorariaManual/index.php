@@ -50,7 +50,7 @@ function cargas_horarias(){
    */   
   
   $render = new Render();
-  $render->setAdvanced([
+  $render->setCondition([
       ["anio","=","1"],
       ["semestre","=","1"],
       ["pla_resolucion","=~", "6321"],

@@ -41,7 +41,7 @@ if(!$fechaAnio || !$fechaSemestre || !$fechaTomaDesde) { //si no esta definido e
 }
 
 $render = new Render();
-$render->setAdvanced([
+$render->setCondition([
     ["cur_com_dvi__clasificacion_nombre", "=", $clasificacion],
     ["cur_com_fecha_anio", "=", $fechaAnio],
     ["cur_com_fecha_semestre", "=", $fechaSemestre],

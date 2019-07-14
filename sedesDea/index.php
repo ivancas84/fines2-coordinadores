@@ -37,7 +37,7 @@ $render = new Render();
 
 $idsPlanes = Dba::field("clasificacion_plan", "plan", [["cla_nombre", "=", "Fines"]]);
 
-$render->setAdvanced([
+$render->setCondition([
     [
         "_filtros",
         "=",

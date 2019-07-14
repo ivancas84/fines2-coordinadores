@@ -13,7 +13,7 @@ $alumnos = [];
 if(!empty($search)) {
   $render = new Render();
   $render->setSearch($search);
-  $render->setAdvanced([
+  $render->setCondition([
     ["com_dvi_sed_dependencia","=",$dependencia],
     ["persona","=",true]
   ]);

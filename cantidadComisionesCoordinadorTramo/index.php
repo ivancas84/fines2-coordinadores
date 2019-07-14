@@ -31,7 +31,7 @@ $coordinador = $_GET["coordinador"];
 $render = new RenderAux();
 $render->setAggregate(["_cantidad"]);
 $render->setGroup(["anio","semestre","dvi_sed_coordinador"]);
-$render->setAdvanced([
+$render->setCondition([
   ["fecha_anio", "=", $fechaAnio],
   ["fecha_semestre", "=", $fechaSemestre],
   ["dvi_sed_dependencia", "=", $dependencia],

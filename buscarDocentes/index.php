@@ -12,7 +12,7 @@ $rows = [];
 
 if(!empty($search)) {
   $render = new Render();
-  $render->setAdvanced([
+  $render->setCondition([
     [
       ["pro_nombres","=~",$search, "OR"],
       ["pro_apellidos","=~",$search, "OR"],

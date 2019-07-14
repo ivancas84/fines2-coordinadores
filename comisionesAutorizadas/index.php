@@ -20,7 +20,7 @@ $dependencia = ($dependencia_ == "Todos") ?  $_SESSION["dependencia"] : $depende
 $orden = isset($_GET["orden"]) ? $_GET["orden"] : "Tramo" ;
 
 $render = new Render();
-$render->setAdvanced(
+$render->setCondition(
     [
         ["fecha_anio", "=", $fechaAnio],
         ["fecha_semestre", "=", $fechaSemestre],

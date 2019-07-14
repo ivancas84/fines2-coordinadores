@@ -38,7 +38,7 @@ function cursos($fechaAnio, $fechaSemestre, $dependencia, $clasificacion){
   ];
 
   $render = new Render();
-  $render->setAdvanced($filtros);
+  $render->setCondition($filtros);
   $render->setOrder([
     "com_dvi_sed_numero" => "ASC", 
     "com_anio" => "ASC", 

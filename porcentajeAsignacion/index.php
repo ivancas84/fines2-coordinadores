@@ -36,7 +36,7 @@ $filtros = [ //filtros para cursos
 ];
 
 $render = new Render();
-$render->setAdvanced($filtros);
+$render->setCondition($filtros);
 $render->setOrder(["com_dvi_sed_numero" => "ASC", "com_anio" => "ASC", "com_semestre" => "ASC"]);
 
 $sql = CursoSqlo::getInstance()->all($render);
@@ -47,14 +47,14 @@ $idCursos = array_unique_key($cursos, "id");
 $render = new RenderAux();
 $render->setAggregate(["_cantidad"]);
 $render->setGroup(["ch_asi_id"]);
-$render->setAdvanced([ "id","=", $idCursos]);
+$render->setCondition([ "id","=", $idCursos]);
 
 $sql = CursoSqlo::getInstance()->advanced($render);
 $cursosAgrupados = Dba::fetchAll($sql);
 echo "<pre>";
 print_r($cursosAgrupados);
 
-$render->setAdvanced([
+$render->setCondition([
   [ "id","=", $idCursos],
   ["toma_activa","=",true],
 ]);
@@ -62,7 +62,7 @@ $render->setAdvanced([
 $sql = CursoSqlo::getInstance()->advanced($render);
 $cursosAprobados = Dba::fetchAll($sql);
 
-$render->setAdvanced([
+$render->setCondition([
   [ "id","=", $idCursos],
   ["toma_activa","=",false],
 ]);

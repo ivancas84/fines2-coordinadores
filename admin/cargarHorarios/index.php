@@ -120,7 +120,7 @@ foreach($comisiones_cursos as $idc => $cursos){
 
 function cursos_autorizados($fecha_anio, $fecha_semestre){
     $render = new Render();
-    $render->setAdvanced([
+    $render->setCondition([
         ["com_fecha_anio","=",$fecha_anio],
         ["com_fecha_semestre","=",$fecha_semestre],
         ["com_autorizada","=",true],
@@ -137,7 +137,7 @@ function cursos_autorizados($fecha_anio, $fecha_semestre){
 
 function distribuciones_horarias($id_cargas_horarias){
     $render = new Render();
-    $render->setAdvanced(["carga_horaria","=",$id_cargas_horarias]);
+    $render->setCondition(["carga_horaria","=",$id_cargas_horarias]);
     $render->setOrder(["carga_horaria"=>"asc"]);
     $sql = DistribucionHorariaSqlo::getInstance()->all($render);
     return Dba::fetchAll($sql);
@@ -145,7 +145,7 @@ function distribuciones_horarias($id_cargas_horarias){
 
 function horarios_anteriores($id_comisiones){
     $render = new Render();
-    $render->setAdvanced([
+    $render->setCondition([
         ["cur_com_comision_siguiente","=",$id_comisiones],
         ["cur_horario","=",true],
     ]);

@@ -33,7 +33,7 @@ $filtros = [
 ];
 
 $render = new Render();
-$render->setAdvanced($filtros);
+$render->setCondition($filtros);
 $render->setOrder(["pro_email"=>"asc"]);
 $sql = TomaSqlo::getInstance()->all($render);
 $emails = array_unique_key(Dba::fetchAll($sql), "pro_email");

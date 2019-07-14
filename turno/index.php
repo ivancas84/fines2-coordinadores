@@ -34,7 +34,7 @@ if(!$fechaAnio || !$fechaSemestre) { //si no esta definido el periodo se da la o
 }
 
 $render = new Render();
-$render->setAdvanced([
+$render->setCondition([
     ["dvi__clasificacion_nombre", "=", $clasificacion],
     ["fecha_anio", "=", $fechaAnio],
     ["fecha_semestre", "=", $fechaSemestre],

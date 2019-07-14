@@ -19,7 +19,7 @@ $filtros = [ //filtros para nomina
 ];
 
 $render = new Render();
-$render->setAdvanced($filtros);
+$render->setCondition($filtros);
 $render->setOrder(["activo" => "DESC", "per_apellidos" => "ASC", "per_nombres" => "ASC"]);
 
 $sqlo = Nomina2Sqlo::getInstance();

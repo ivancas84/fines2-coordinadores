@@ -58,7 +58,7 @@ function id_comisiones($cargasHorariasExistentes = null){
     $render = new RenderAux;
     $render->setAggregate(["max_comision"]);
     $render->setGroup(["carga_horaria"]);
-    $render->setAdvanced([
+    $render->setCondition([
         ["horario","=",true],
         ["horario","!=~","00:00"],
     ]);
@@ -73,7 +73,7 @@ function comisiones_horarios($comisionesId){
      * horarios agrupados por comision
      */
     $render = new Render();
-    $render->setAdvanced(["cur_comision","=",$comisionesId]);
+    $render->setCondition(["cur_comision","=",$comisionesId]);
     $render->setOrder(["cur_comision" => "ASC", "dia_numero" => "ASC", "hora_inicio" => "ASC"]);
     $sqlo = HorarioSqlo::getInstance();
     $sql = $sqlo->all($render);

@@ -27,7 +27,7 @@ $filtros = [
 ];
 
 $render = new Render();
-$render->setAdvanced($filtros);
+$render->setCondition($filtros);
 $render->setOrder(["per_email"=>"asc"]);
 $sql = ReferenteSqlo::getInstance()->all($render);
 $emails = array_unique_key(Dba::fetchAll($sql), "per_email");

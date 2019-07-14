@@ -45,7 +45,7 @@ $filtros = [
 ];
 
 $render = new Render();
-$render->setAdvanced($filtros);
+$render->setCondition($filtros);
 $render->setOrder(["pro_apellidos"=>"asc", "pro_nombres"=>"asc"]);
 
 $sql = TomaSqlo::getInstance()->profesorSumaHorasCatedraAll($render);

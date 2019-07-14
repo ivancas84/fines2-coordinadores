@@ -51,7 +51,7 @@ echo $sql;
 
 function comisiones_autorizadas($fecha_anio, $fecha_semestre){
     $render = new Render();
-    $render->setAdvanced([
+    $render->setCondition([
         ["fecha_anio","=",$fecha_anio],
         ["fecha_semestre","=",$fecha_semestre],
         ["tramo","!=","32"],                    

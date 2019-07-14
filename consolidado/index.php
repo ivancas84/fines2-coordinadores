@@ -48,7 +48,7 @@ function cursos($fechaAnio, $fechaSemestre, $dependencia, $clasificacion){
   ];
 
   $render = new Render();
-  $render->setAdvanced($filtros);
+  $render->setCondition($filtros);
   $render->setOrder(["com_dvi_sed_numero" => "ASC", "com_anio" => "ASC", "com_semestre" => "ASC"]);
 
   $sql = CursoSqlo::getInstance()->all($render);
@@ -62,7 +62,7 @@ function tomas($idCursos){
   ];
   
   $render = new Render();
-  $render->setAdvanced($filtros);
+  $render->setCondition($filtros);
   $render->setOrder(["cur_com_dvi_sed_numero" => "ASC", "cur_com_anio" => "ASC", "cur_com_semestre" => "ASC"]);
   
   $sql = TomaSqlo::getInstance()->all($render);
@@ -73,7 +73,7 @@ function cantidad_alumnos($idComisiones){
   $render = new RenderAux();
   $render->setAggregate(["_cantidad"]);
   $render->setGroup(["comision"]);
-  $render->setAdvanced([
+  $render->setCondition([
     ["com_id","=",$idComisiones],
     ["activo","=",true]
   ]);

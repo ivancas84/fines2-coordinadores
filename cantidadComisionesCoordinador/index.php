@@ -41,7 +41,7 @@ if(!$fechaAnio || !$fechaSemestre || !$clasificacion) {
 $render = new RenderAux();
 $render->setAggregate(["_cantidad"]);
 $render->setGroup(["dvi_sed_coordinador"]);
-$render->setAdvanced([
+$render->setCondition([
   ["fecha_anio", "=", $fechaAnio],
   ["fecha_semestre", "=", $fechaSemestre],
   ["dvi_sed_dependencia", "=", $dependencia],

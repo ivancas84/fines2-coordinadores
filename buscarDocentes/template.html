@@ -13,14 +13,14 @@
     </tr>
   </thead>
   <tbody>
-<? foreach($rows as $row): $profesor = new IdPersonaValues($row); ?>
+<? foreach($rows as $row): $p = IdPersonaSqlo::getInstance()->values($row); ?>
     <tr>
-      <td><?=$profesor->nombre("AA Nn")?></td>
-      <td><?=$profesor->cuil()?></td>
-      <td><?=$profesor->email()?></td>
-      <td><?=$profesor->telefonos()?></td>
-      <td><?=$profesor->fechaNacimiento("d/m/Y")?></td>
-      <td><a href="<?=PATH_HTTP_SITE?>infoDocente/?id=<?=$profesor->id()?>">Detalle</a></td>
+      <td><?=$p["id_persona"]->nombre("AA Nn")?></td>
+      <td><?=$p["id_persona"]->cuil()?></td>
+      <td><?=$p["id_persona"]->email()?></td>
+      <td><?=$p["id_persona"]->telefonos()?></td>
+      <td><?=$p["id_persona"]->fechaNacimiento("d/m/Y")?></td>
+      <td><a href="<?=PATH_HTTP_SITE?>infoDocente/?id=<?=$p['id_persona']->id()?>">Detalle</a></td>
 
     </tr>
 

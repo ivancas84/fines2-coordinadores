@@ -3,6 +3,7 @@
 require_once("../config/config.php");
 require_once("config/valuesClasses.php");
 require_once("class/model/Dba.php");
+require_once("function/array_unique_key.php");
 
 
 $search = isset($_GET["search"]) ? $_GET["search"] : null;
@@ -13,23 +14,14 @@ $rows = [];
 if(!empty($search)) {
   $render = new Render();
   $render->setCondition([
-    [
-      ["pro_nombres","=~",$search, "OR"],
-      ["pro_apellidos","=~",$search, "OR"],
-      ["pro_numero_documento","=~",$search, "OR"],
-      ["pro_cuil","=~",$search, "OR"],
-      ["pro_email","=~",$search, "OR"],
-    ],
+    ["pro_search_", "=~", $search ],
     ["cur_com_dvi_sed_dependencia","=",$dependencia],
     ["profesor","=",true]
   ]);
 
   
-  
   $sql = TomaSqlo::getInstance()->all($render);
-  echo "<pre>".$sql;
-  $idProfesores = array_column(Dba::fetchAll($sql), "profesor");
-  print_r($idProfesores);
+  $idProfesores = array_unique_key(Dba::fetchAll($sql), "profesor");
   $rows = [];
   if(!empty($idProfesores))
     $sql = IdPersonaSqlo::getInstance()->all(["id", "=", $idProfesores]);

@@ -12,15 +12,29 @@ $rows = [];
 
 if(!empty($search)) {
   $render = new Render();
-  $render->setSearch($search);
   $render->setAdvanced([
+    [
+      ["pro_nombres","=~",$search, "OR"],
+      ["pro_apellidos","=~",$search, "OR"],
+      ["pro_numero_documento","=~",$search, "OR"],
+      ["pro_cuil","=~",$search, "OR"],
+      ["pro_email","=~",$search, "OR"],
+    ],
     ["cur_com_dvi_sed_dependencia","=",$dependencia],
     ["profesor","=",true]
   ]);
+
   
-  $idProfesores = Dba::field("toma", "profesor", $render);
-  $rows = (!empty($idProfesores)) ? Dba::all("id_persona", ["id", "=", $idProfesores]) : []; 
-}
+  
+  $sql = TomaSqlo::getInstance()->all($render);
+  echo "<pre>".$sql;
+  $idProfesores = array_column(Dba::fetchAll($sql), "profesor");
+  print_r($idProfesores);
+  $rows = [];
+  if(!empty($idProfesores))
+    $sql = IdPersonaSqlo::getInstance()->all(["id", "=", $idProfesores]);
+    $rows = Dba::fetchAll($sql);
+  }
 
 $title = "Buscar docentes";
 $content = "buscarDocentes/template.html";

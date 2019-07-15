@@ -1,0 +1,33 @@
+<table id="controlnotas">
+    <thead>
+      <tr>
+          <th>APELLIDOS</th>
+          <th>NOMBRES</th>
+          <th>COM</th>
+          <th>NOMBRE</th>
+          <th>ASIGNATURA</th>
+          <th>HORARIO</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+<? foreach($cursos as $curso): $cu = CursoSqlo::getInstance()->values($curso) ?>
+        <tr>
+            <td><?=$cu["profesor"]->apellidos("X")?></td>
+            <td><?=$cu["profesor"]->nombres("Xx Yy")?></td>
+            <td><?=$cu["division"]->numero()?>/<?=$cu["comision"]->tramo()?></td>
+            <td><?=$cu["sede"]->nombre()?> (<?=$cu["coordinador"]->nombrePrincipal()?>)</td>
+            <td><?=$cu["asignatura"]->nombre()?></td>
+            <td><?=$cu["curso"]->horario()?></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+<? endforeach; ?>
+      </tbody>
+    </table>  

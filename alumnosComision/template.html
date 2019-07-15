@@ -25,9 +25,9 @@
         <tr class="<?=$a['nomina2']->background()?>">
             <td>
               <p><?=$a["persona"]->apellidos("X")?> <?=$a["persona"]->nombres("Xx Yy")?></p>
+              <p><strong>DNI: </strong><?=$a["persona"]->numeroDocumento();?></p>
             </td>
             <td>
-              <p><strong>DNI: </strong><?=$a["persona"]->numeroDocumento();?></p>
               <p><strong>Nació: </strong><?=$a["persona"]->fechaNacimiento();?></p>
               <p><strong>Tel: </strong><?=$a["persona"]->telefonos();?></p>
             </td>

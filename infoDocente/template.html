@@ -26,8 +26,8 @@
 <strong>El docente no tiene tomas asignadas</strong>
 <? endif; ?>
 
-<? foreach($periodos as $periodo => $tomas): ?>
-  <h3>PERIODO: <?=$periodo?></h3>
+<? foreach($periodos as $periodo => $tomas): $p = TomaSqlo::getInstance()->values($tomas[0]); ?>
+  <h3>PERIODO: <?=$p["comision"]->fechaAnio()?>-<?=$p["comision"]->fechaSemestre()?></h3>
   <table class="table table-bordered table-hover table-sm border-black">
       <thead class="thead-light">
         <tr>
@@ -44,9 +44,7 @@
         <tr>
       </thead>
       <tbody>
-<?  foreach($tomas as $toma):
-
-  $v = toma_values($toma); ?>
+<?  foreach($tomas as $toma): $v = TomaSqlo::getInstance()->values($toma); ?>
         <tr class="<?=$v['toma']->background()?>">
           <td><?=$v["sede"]->nombre()?></td>
           <td><?=$v["division"]->numero()?>/<?=$v["comision"]->anio()?><?=$v["comision"]->semestre()?></td>

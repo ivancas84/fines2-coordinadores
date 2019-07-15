@@ -9,17 +9,14 @@ require_once("function/array_unique_key.php");
 require_once("function/array_group_value.php");
 
 
-$comision = isset($_GET["comision"]) ? $_GET["comision"] : null;
+$comision = isset($_GET["id"]) ? $_GET["id"] : null;
 if(empty($comision)) echo "LA COMISION NO EXISTE";
 
 $title = "Alumnos comision";
 
-$filtros = [ //filtros para nomina
-  ["comision", "=", $comision],
-];
 
 $render = new Render();
-$render->setCondition($filtros);
+$render->setCondition(["comision", "=", $comision]);
 $render->setOrder(["activo" => "DESC", "per_apellidos" => "ASC", "per_nombres" => "ASC"]);
 
 $sqlo = Nomina2Sqlo::getInstance();

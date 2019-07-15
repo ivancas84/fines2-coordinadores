@@ -1,5 +1,5 @@
-<? require("_buscar/index.html"); ?>
-<? if(!empty($rows)): ?>
+<? require("buscarAlumnos/buscar.html"); ?>
+<? if(!empty($alumnos)): ?>
 <br>
 <table class="table table-striped table-bordered table-hover table-sm border-black">
   <thead class="thead-light">
@@ -13,14 +13,14 @@
     </tr>
   </thead>
   <tbody>
-<? foreach($rows as $row): $alumno = new IdPersonaValues($row); ?>
+<? foreach($alumnos as $alumno): $a = IdPersonaSqlo::getInstance()->values($alumno); ?>
     <tr>
-      <td><?=$alumno->nombre("AA Nn")?></td>
-      <td><?=$alumno->cuil()?></td>
-      <td><?=$alumno->email()?></td>
-      <td><?=$alumno->telefonos()?></td>
-      <td><?=$alumno->fechaNacimiento("d/m/Y")?></td>
-      <td><a href="<?=PATH_HTTP_SITE?>infoAlumno/?id=<?=$alumno->id()?>">Detalle</a></td>
+      <td><?=$a["id_persona"]->nombre("AA Nn")?></td>
+      <td><?=$a["id_persona"]->cuil()?></td>
+      <td><?=$a["id_persona"]->email()?></td>
+      <td><?=$a["id_persona"]->telefonos()?></td>
+      <td><?=$a["id_persona"]->fechaNacimiento("d/m/Y")?></td>
+      <td><a href="<?=PATH_HTTP_SITE?>infoAlumno/?id=<?=$a['id_persona']->id()?>">Detalle</a></td>
     </tr>
 <? endforeach; ?>
   </tbody>

@@ -12,6 +12,16 @@ $dependencia = $_SESSION["dependencia"];
 $rows = [];
 
 if(!empty($search)) {
+  $idProfesores = id_profesores($search, $dependencia);
+  if(!empty($idProfesores)) $rows = profesores($idProfesores);
+}
+
+$title = "Buscar docentes";
+$content = "buscarDocentes/template.html";
+require_once("index/menu.html"); 
+
+
+function id_profesores($search, $dependencia){
   $render = new Render();
   $render->setCondition([
     ["pro_search_", "=~", $search ],
@@ -19,15 +29,15 @@ if(!empty($search)) {
     ["profesor","=",true]
   ]);
 
-  
   $sql = TomaSqlo::getInstance()->all($render);
-  $idProfesores = array_unique_key(Dba::fetchAll($sql), "profesor");
-  $rows = [];
-  if(!empty($idProfesores))
-    $sql = IdPersonaSqlo::getInstance()->all(["id", "=", $idProfesores]);
-    $rows = Dba::fetchAll($sql);
-  }
+  return array_unique_key(Dba::fetchAll($sql), "profesor");
+}
 
-$title = "Buscar docentes";
-$content = "buscarDocentes/template.html";
-require_once("index/menu.html"); 
+function profesores($idProfesores){
+  if (empty($idProfesores)) return [];
+  $render = new Render();
+  $render->setCondition(["id", "=", $idProfesores]);
+  $render->setOrder(["apellidos" => "ASC", "nombres" => "ASC"]);
+  $sql = IdPersonaSqlo::getInstance()->all($render);
+  return Dba::fetchAll($sql);
+}

@@ -26,8 +26,8 @@
 <strong>El alumno no tiene comisiones asignadas</strong>
 <? endif; ?>
 
-<? foreach($periodos as $periodo => $nominas): ?>
-  <h3>PERIODO: <?=$periodo?></h3>
+<? foreach($periodos as $periodo => $nominas): $p = Nomina2Sqlo::getInstance()->values($nominas[0]); ?>
+  <h3>PERIODO: <?=$p["comision"]->fechaAnio()?>-<?=$p["comision"]->fechaSemestre()?></h3>
   <table class="table table-bordered table-hover table-sm border-black">
       <thead class="thead-light">
         <tr>
@@ -43,7 +43,7 @@
         <tr>
       </thead>
       <tbody>
-<?  foreach($nominas as $nomina): $v = get_entities($nomina); ?>
+<?  foreach($nominas as $nomina): $v = Nomina2Sqlo::getInstance()->values($nomina); ?>
         <tr class="<?=$v['nomina2']->background()?>">
           <td><?=$v["sede"]->nombre()?></td>
           <td><?=$v["division"]->numero()?>/<?=$v["comision"]->anio()?><?=$v["comision"]->semestre()?></td>

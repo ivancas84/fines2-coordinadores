@@ -10,12 +10,13 @@
     </thead>
     <tbody>
 
-<? foreach($comisiones as $comision): $co = comision_values($comision) ?>
+<? $i = 0; foreach($comisiones as $comision): $i++; $co = comision_values($comision) ?>
         <tr>
             <td>
               <p><strong><?=$co["sede"]->numero()?></strong> <?=$co["sede"]->nombre()?></p>
               <p><strong>Domicilio:</strong> <?=$co["domicilio"]->label()?></p>              
               <p><strong>Coordinador:</strong> <?if($co["coordinador"]) echo $co["coordinador"]->nombrePrincipal()?></p>
+              <p>Fila: <?=$i?></p>
             </td>
             <td>
               <p><strong><?=$co["division"]->numero()?>/<?=$co["comision"]->tramo()?></strong></p>
@@ -25,7 +26,7 @@
             </td>
             <td>
               <table>
-              <?foreach($comision as $curso): $cu = CursoSqlo::getInstance()->values($curso)?>
+              <? foreach($comision as $curso): $cu = CursoSqlo::getInstance()->values($curso)?>
                 <tr>
                   <td><?=$cu["asignatura"]->nombre()?></td>
                   <td><?=$cu["curso"]->horario()?></td>

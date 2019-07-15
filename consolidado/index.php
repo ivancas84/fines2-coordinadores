@@ -39,16 +39,17 @@ require_once("index/menu.html");
 
 
 function cursos($fechaAnio, $fechaSemestre, $dependencia, $clasificacion){
-  $filtros = [ //filtros para cursos
+  $render = new Render();
+  $render->setGeneralCondition([ //filtros para cursos
+    ["com_dvi__clasificacion_nombre", "=", $clasificacion]
+  ]);
+  $render->setCondition([
     ["com_fecha_anio", "=", $fechaAnio],
     ["com_fecha_semestre", "=", $fechaSemestre],
     ["com_autorizada", "=", true],
     ["com_dvi_sed_dependencia", "=", $dependencia],
-    ["com_dvi__clasificacion_nombre", "=", $clasificacion]
-  ];
-
-  $render = new Render();
-  $render->setCondition($filtros);
+  ]);
+ 
   $render->setOrder(["com_dvi_sed_numero" => "ASC", "com_anio" => "ASC", "com_semestre" => "ASC"]);
 
   $sql = CursoSqlo::getInstance()->all($render);

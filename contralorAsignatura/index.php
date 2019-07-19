@@ -7,6 +7,8 @@
 require_once("../config/config.php");
 require_once("class/model/Data.php");
 require_once("config/valuesClasses.php");
+require_once("function/fecha_anios.php");
+require_once("function/fecha_semestres.php");
 
 
 function get_data($toma){
@@ -24,12 +26,10 @@ function get_data($toma){
 $fechaAnio = isset($_GET["fecha_anio"]) ? $_GET["fecha_anio"] : null;
 $fechaSemestre = isset($_GET["fecha_semestre"]) ? $_GET["fecha_semestre"] : null;
 $clasificacion = "Fines";
-
-$fechaAnioOptions = [2019, 2018, 2017, 2016];
-$fechaSemestreOptions = [1, 2];
+$fechaEntradaContralor = isset($_GET["fecha_entrada_contralor"]) ? $_GET["fecha_entrada_contralor"] : false; 
 
 if(!$fechaAnio || !$fechaSemestre) { //si no esta definido el periodo se da la opcion de definirlo
-    $content = "_periodo/index.html";
+    $content = "contralorAsignatura/formulario.html";
     $action = "";
     
     require_once("index/menu.html");
@@ -47,11 +47,12 @@ $render->setCondition([
         ["estado","=","Baja","OR"],
     ],
     ["profesor","=",true],
-    ["fecha_entrada_contralor","=",false],
+    ["fecha_entrada_contralor","=",$fechaEntradaContralor],
     ["estado_contralor","=","Pasar"]
 ]);
 $render->setOrder(["pro__numero_documento" => "ASC"]);
-$rows = Dba::all("toma", $render);
+$sql = TomaSqlo::getInstance()->all($render);
+$rows = Dba::fetchAll($sql);
 //$sql = Data::contralorPeriodo($fechaAnio, $fechaSemestre, $clasificacion);
 //$rows = Dba::fetchAll($sql);
 

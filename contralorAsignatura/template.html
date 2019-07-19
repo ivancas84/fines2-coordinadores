@@ -9,7 +9,7 @@
 
 <table>
 <?
-foreach($rows as $row): $r = get_data($row); 
+foreach($rows as $row): $r = TomaSqlo::getInstance()->values($row); 
 ?>
 <tr>
   <td>Ad referendum</td>

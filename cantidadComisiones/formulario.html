@@ -1,0 +1,44 @@
+<form class="form-inline"  method="GET">
+
+    <label for="fecha_anio">Fecha Año:</label>
+    <select name="fecha_anio" class="form-control">
+      <? foreach(fecha_anios() as $fao): 
+        $selected = ($fao == $fechaAnio) ? 'selected="selected"' : "";
+      ?>
+        <option value="<?=$fao?>" <?=$selected?>><?=$fao?></option>
+      <? endforeach; ?>
+    </select>
+    
+
+    <label for="fecha_semestre">Fecha Semestre:</label>
+    <select name="fecha_semestre" class="form-control">
+      <? foreach(fecha_semestres() as $fso): 
+        $selected = ($fso == $fechaSemestre) ? 'selected="selected"' : "";
+      ?>
+        <option value="<?=$fso?>" <?=$selected?>><?=$fso?></option>
+      <? endforeach; ?>
+    </select>
+
+    <label for="clasificacion">Clasificación:</label>
+    <select name="clasificacion" class="form-control">
+      <? foreach(clasificaciones() as $clo): 
+        $selected = ($clo == $clasificacion) ? 'selected="selected"' : "";
+      ?>
+        <option value="<?=$clo?>" <?=$selected?>><?=$clo?></option>
+      <? endforeach; ?>
+    </select>
+
+
+    <label for="dependencia">Dependencia:</label>
+    <select name="dependencia" class="form-control">
+        <option value="Todos">Todos</option>
+
+      <? foreach(dependencias() as $key => $dep): 
+        $selected = ($key == $dependencia) ? 'selected="selected"' : "";
+      ?>
+        <option value="<?=$key?>" <?=$selected?>><?=$dep?></option>
+      <? endforeach; ?>
+    </select>
+
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>

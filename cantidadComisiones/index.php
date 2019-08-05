@@ -10,6 +10,10 @@ require_once("function/array_combine_keys.php");
 require_once("class/SpanishDateTime.php");
 require_once("class/model/values/idPersona/IdPersona.php");
 require_once("class/model/Data.php");
+require_once("function/dependencias.php");
+require_once("function/clasificaciones.php");
+require_once("function/fecha_anios.php");
+require_once("function/fecha_semestres.php");
 
 
 
@@ -18,34 +22,19 @@ function get_data($row){
 
   $total += intval($row["_cantidad"]);
 
-  $v["comision"] = new ComisionValues($row);
+  $v["comision"] = new ComisionValues();
+  $v["comision"]->fromArray($row);
   $v["cantidad"] = $row["_cantidad"];
 
   return $v;
 }
-/*
-$id = Filter::request("id");
-$persona_ = Dba::get("id_persona", $id);
-$dependencia = $_SESSION["dependencia"];
-
-$render = new Render();
-$render->addAdvanced([["profesor", "=", $id], ["cur_com_dvi_sed_dependencia", "=", $dependencia]]);
-$render->setOrder(["cur_com_fecha_anio" => "DESC", "cur_com_fecha_semestre" => "DESC"]);
-$tomas = Dba::all("toma", $render);
-
-$content = "cantidadComisiones/template.html";
-$title = "Cantidad de Comisiones";
-//$persona = new IdPersonaValues($persona_);
-*/
-
 
 $title = "Cantidad de comisiones";
-$dependencia = $_SESSION["dependencia"];
-$fechaAnio = isset($_GET["fecha_anio"]) ? $_GET["fecha_anio"] : null;
-$fechaSemestre = isset($_GET["fecha_semestre"]) ? $_GET["fecha_semestre"] : null;
-$clasificacion = isset($_GET["clasificacion"]) ? $_GET["clasificacion"] : null;
-require_once("_periodoClasificacion/options.php");
-
+$dependencia_ = isset($_GET["dependencia"]) ? $_GET["dependencia"] : "Todos";
+$fechaAnio = isset($_GET["fecha_anio"]) ? $_GET["fecha_anio"] : date("Y");
+$fechaSemestre = isset($_GET["fecha_semestre"]) ? $_GET["fecha_semestre"] : ((intval(date("m")) < 7) ? 1 : 2);
+$clasificacion = isset($_GET["clasificacion"]) ? $_GET["clasificacion"] : "Fines";
+$dependencia = ($dependencia_ == "Todos") ?  $_SESSION["dependencia"] : $dependencia_;
 
 if(!$fechaAnio || !$fechaSemestre || !$clasificacion) { 
   $content = "_periodoClasificacion/template.html";

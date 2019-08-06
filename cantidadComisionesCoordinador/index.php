@@ -11,12 +11,22 @@ require_once("class/SpanishDateTime.php");
 require_once("class/model/values/idPersona/IdPersona.php");
 require_once("class/model/Data.php");
 
+require_once("function/dependencias.php");
+require_once("function/clasificaciones.php");
+require_once("function/fecha_anios.php");
+require_once("function/fecha_semestres.php");
+
+
 function get_data($row){
   global $total;
 
   $total += intval($row["_cantidad"]);
-  $persona = Dba::getOrNull("id_persona",$row["dvi_sed_coordinador"]);
-  $v["persona"] = new IdPersonaValues($persona); 
+  $v["persona"] = new IdPersonaValues();
+  if($row["dvi_sed_coordinador"]) {
+    $sql = IdPersonaSqlo::getInstance()->getAll([$row["dvi_sed_coordinador"]]);
+    $v["persona"]->fromArray(Dba::fetchAssoc($sql));
+  
+  }
   $v["cantidad"] = $row["_cantidad"];
 
   return $v;
@@ -24,19 +34,12 @@ function get_data($row){
 
 $title = "Cantidad de comisiones por coordinador";
 
-$dependencia = $_SESSION["dependencia"];
-
-$fechaAnio = isset($_GET["fecha_anio"]) ? $_GET["fecha_anio"] : null;
-$fechaSemestre = isset($_GET["fecha_semestre"]) ? $_GET["fecha_semestre"] : null;
-$clasificacion = isset($_GET["clasificacion"]) ? $_GET["clasificacion"] : null;
-require_once("_periodoClasificacion/options.php");
-
-
-if(!$fechaAnio || !$fechaSemestre || !$clasificacion) { 
-  $content = "_periodoClasificacion/template.html";
-  require_once("index/menu.html");
-  return;
-}
+$title = "Cantidad de comisiones";
+$dependencia_ = isset($_GET["dependencia"]) ? $_GET["dependencia"] : "Todos";
+$fechaAnio = isset($_GET["fecha_anio"]) ? $_GET["fecha_anio"] : date("Y");
+$fechaSemestre = isset($_GET["fecha_semestre"]) ? $_GET["fecha_semestre"] : ((intval(date("m")) < 7) ? 1 : 2);
+$clasificacion = isset($_GET["clasificacion"]) ? $_GET["clasificacion"] : "Fines";
+$dependencia = ($dependencia_ == "Todos") ?  $_SESSION["dependencia"] : $dependencia_;
 
 $render = new RenderAux();
 $render->setAggregate(["_cantidad"]);

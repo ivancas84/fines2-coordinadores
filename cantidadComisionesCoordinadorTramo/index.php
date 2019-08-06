@@ -13,7 +13,8 @@ function get_data($row){
   global $total;
 
   $total += intval($row["_cantidad"]);
-  $v["comision"] = new ComisionValues($row); 
+  $v["comision"] = new ComisionValues();
+  $v["comision"]->fromArray($row); 
   $v["cantidad"] = $row["_cantidad"];
 
   return $v;
@@ -23,9 +24,12 @@ $title = "Cantidad de comisiones por coordinador";
 
 $dependencia = $_SESSION["dependencia"];
 
-$fechaAnio = isset($_GET["fecha_anio"]) ? $_GET["fecha_anio"] : null;
-$fechaSemestre = isset($_GET["fecha_semestre"]) ? $_GET["fecha_semestre"] : null;
-$clasificacion = isset($_GET["clasificacion"]) ? $_GET["clasificacion"] : null;
+$title = "Cantidad de comisiones";
+$dependencia_ = isset($_GET["dependencia"]) ? $_GET["dependencia"] : "Todos";
+$fechaAnio = isset($_GET["fecha_anio"]) ? $_GET["fecha_anio"] : date("Y");
+$fechaSemestre = isset($_GET["fecha_semestre"]) ? $_GET["fecha_semestre"] : ((intval(date("m")) < 7) ? 1 : 2);
+$clasificacion = isset($_GET["clasificacion"]) ? $_GET["clasificacion"] : "Fines";
+$dependencia = ($dependencia_ == "Todos") ?  $_SESSION["dependencia"] : $dependencia_;
 $coordinador = $_GET["coordinador"];
 
 $render = new RenderAux();

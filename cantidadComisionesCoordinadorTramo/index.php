@@ -48,8 +48,9 @@ $render->setOrder(["tramo"=>"asc"]);
 
 $sql = ComisionSqlo::getInstance()->advanced($render);
 $rows = Dba::fetchAll($sql);
-$personaData = Dba::get("id_persona", $coordinador);
-$persona= new IdPersonaValues($personaData);
+$sql = IdPersonaSqlo::getInstance()->getAll([$coordinador]);
+$persona= new IdPersonaValues();
+$persona->fromArray(Dba::fetchAssoc($sql));
 $total = 0;
 
 $content = "cantidadComisionesCoordinadorTramo/template.html";

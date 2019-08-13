@@ -5,52 +5,73 @@
       <tr>
         <td><strong>SEDE</strong></td>
         <td><strong>COMISION</strong></td>
-        <td><strong>CURSOS</strong></td>
+        <td><strong>CURSO</strong></td>
+        <td><strong>HORARIO</strong></td>        
+        <td><strong>TOMA</strong></td>
       </tr>
     </thead>
     <tbody>
 
-<? $i = 0; foreach($comisiones as $comision): $i++; $co = comision_values($comision) ?>
+<? foreach($comisiones as $comision): 
+$co = comision_values($comision);
+$cu = CursoSqlo::getInstance()->values($comision[0]); ?>
         <tr>
-            <td>
+            <td rowspan="5">
               <p><strong><?=$co["sede"]->numero()?></strong> <?=$co["sede"]->nombre()?></p>
               <p><strong>Domicilio:</strong> <?=$co["domicilio"]->label()?></p>              
               <p><strong>Coordinador:</strong> <?if($co["coordinador"]) echo $co["coordinador"]->nombrePrincipal()?></p>
-              <p>Fila: <?=$i?></p>
             </td>
-            <td>
+            <td rowspan="5">
               <p><strong><?=$co["division"]->numero()?>/<?=$co["comision"]->tramo()?></strong></p>
               <p><?=$co["plan"]->orientacion()?></p>
               <p><?=$co["plan"]->resolucion()?></p>
               <p><a class="btn btn-outline-primary btn-sm" href="<?=PATH_HTTP_SITE?>alumnosComision?id=<?=$co['comision']->id()?>"><?=$co["alumnos"]?> ALUMNOS</a></p>
             </td>
+            <td><?=$cu["asignatura"]->nombre()?>
+              <br><?=$cu["asignatura"]->codigo()?>
+            </td>
+            <td><?=$cu["curso"]->horario()?></td>
             <td>
-              <table>
-              <? foreach($comision as $curso): $cu = CursoSqlo::getInstance()->values($curso)?>
-                <tr>
-                  <td><?=$cu["asignatura"]->nombre()?></td>
-                  <td><?=$cu["curso"]->horario()?></td>
-                  <td>
-                    <?if(key_exists($cu["curso"]->id(), $tomas)): foreach ($tomas[$cu["curso"]->id()] as $toma): $to = TomaSqlo::getInstance()->values($toma) ?>
-                      <p class="<?=$to["toma"]->background()?>">
-                      <?if(is_string($to["profesor"])):?> 
-                      <?=$to["profesor"]?>
-                      <?else:?>
-                      <?=$to["profesor"]->apellidos("X")?>, <?=$to["profesor"]->nombres("Xx Yy")?> <strong><?=$to["toma"]->estadosAbr()?></strong>
-                      <br><?=$to["profesor"]->telefonos()?>
-                      <br><?=$to["profesor"]->email()?>
-                      <?endif;?>
-                    
-                      </p>  
-                    <?endforeach; else:?>                    
-                      <p>Sin Toma</p>
-                    <?endif?>
-                  </td>
-                </tr>
-              <?endforeach;?>
-              </table>
+              <?if(key_exists($cu["curso"]->id(), $tomas)): foreach ($tomas[$cu["curso"]->id()] as $toma): $to = TomaSqlo::getInstance()->values($toma) ?>
+                <p class="<?=$to["toma"]->background()?>">
+                <?if(is_string($to["profesor"])):?> 
+                <?=$to["profesor"]?>
+                <?else:?>
+                <?=$to["profesor"]->apellidos("X")?>, <?=$to["profesor"]->nombres("Xx Yy")?> <strong><?=$to["toma"]->estadosAbr()?></strong>
+                <br><?=$to["profesor"]->telefonos()?>
+                <br><?=$to["profesor"]->email()?>
+                <?endif;?>
+              
+                </p>  
+              <?endforeach; else:?>                    
+                <p>Sin Toma</p>
+              <?endif?>
             </td>
         </tr>
-<? endforeach; ?>
+<? for($i =1; $i < count($comision); $i++): $cu = CursoSqlo::getInstance()->values($comision[$i]);?>
+        <tr>
+    
+          <td><?=$cu["asignatura"]->nombre()?>
+            <br><?=$cu["asignatura"]->codigo()?>
+          </td>
+          <td><?=$cu["curso"]->horario()?></td>
+          <td>
+            <?if(key_exists($cu["curso"]->id(), $tomas)): foreach ($tomas[$cu["curso"]->id()] as $toma): $to = TomaSqlo::getInstance()->values($toma) ?>
+              <p class="<?=$to["toma"]->background()?>">
+              <?if(is_string($to["profesor"])):?> 
+              <?=$to["profesor"]?>
+              <?else:?>
+              <?=$to["profesor"]->apellidos("X")?>, <?=$to["profesor"]->nombres("Xx Yy")?> <strong><?=$to["toma"]->estadosAbr()?></strong>
+              <br><?=$to["profesor"]->telefonos()?>
+              <br><?=$to["profesor"]->email()?>
+              <?endif;?>
+            
+              </p>  
+            <?endforeach; else:?>                    
+              <p>Sin Toma</p>
+            <?endif?>
+          </td>
+        </tr>
+<? endfor; endforeach; ?>
       </tbody>
     </table>  

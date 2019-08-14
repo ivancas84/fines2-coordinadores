@@ -1,10 +1,33 @@
 <?php
 require_once("../config/config.php");
-require_once("class/model/Data.php");
+require_once("class/model/Dba.php");
+require_once("class/model/Sqlo.php");
 require_once("config/valuesClasses.php");
 require_once("function/array_combine_key.php");
 
+$idComision = $_GET["id"];
+$title = "Horarios Comision";
 
+$filtros = [
+    ["cur_comision", "=", $idComision],
+];
+
+$render = new Render();
+$render->setCondition($filtros);
+$render->setOrder(["dia_numero" => "ASC", "hora_inicio" => "ASC"]);
+
+$hsqlo = EntitySqlo::getInstanceRequire("horario");
+$sql = $hsqlo->all($render);
+$horarios = Dba::fetchAll($sql);
+$d = $hsqlo->values($horarios[0]);
+echo "<pre>";
+print_r($d);
+$title = "Horarios comisión";
+$content = "horariosComision/template.html";
+require_once("index/menu.html");
+
+
+/*
 function get_main_data($d){
   return [
     "comision" => new ComisionValues($d["curso_"]["comision_"]),
@@ -59,21 +82,4 @@ function get_data($d){
 
 }
 
-$idComision = $_GET["id"];
-$title = "Horarios Comision";
-
-$filtros = [
-    ["cur_comision", "=", $idComision],
-];
-
-$render = new Render();
-$render->setCondition($filtros);
-$render->setOrder(["dia_numero" => "ASC", "hora_inicio" => "ASC"]);
-
-$horarios = Dba::all("horario",$render);
-$d = get_main_data($horarios[0]);
-
-
-$title = "Horarios comisión";
-$content = "horariosComision/template.html";
-require_once("index/menu.html");
+*/

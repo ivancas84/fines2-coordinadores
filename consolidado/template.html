@@ -37,7 +37,8 @@ $cu = CursoSqlo::getInstance()->values($comision[0]); ?>
                 <?if(is_string($to["profesor"])):?> 
                 <?=$to["profesor"]?>
                 <?else:?>
-                <?=$to["profesor"]->apellidos("X")?>, <?=$to["profesor"]->nombres("Xx Yy")?> <strong><?=$to["toma"]->estadosAbr()?></strong>
+                <a href="../infoDocente/?id=<?=$to['profesor']->id()?>"><?=$to["profesor"]->nombre("AA, Nn")?></a>
+                <strong><?=$to["toma"]->estadosAbr()?></strong>
                 <br><?=$to["profesor"]->telefonos()?>
                 <br><?=$to["profesor"]->email()?>
                 <?endif;?>
@@ -61,7 +62,7 @@ $cu = CursoSqlo::getInstance()->values($comision[0]); ?>
               <?if(is_string($to["profesor"])):?> 
               <?=$to["profesor"]?>
               <?else:?>
-              <?=$to["profesor"]->apellidos("X")?>, <?=$to["profesor"]->nombres("Xx Yy")?> <strong><?=$to["toma"]->estadosAbr()?></strong>
+              <a href="../infoDocente/?id=<?=$to['profesor']->id()?>"><?=$to["profesor"]->nombre("AA, Nn")?></a>
               <br><?=$to["profesor"]->telefonos()?>
               <br><?=$to["profesor"]->email()?>
               <?endif;?>

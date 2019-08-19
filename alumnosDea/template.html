@@ -38,7 +38,7 @@ table, td, tr, th{
 <body>
 
 <table>
-<? foreach($alumnos as $alumno): $d = get_data($alumno); ?>
+<? foreach($alumnos as $alumno): $d = Nomina2Sqlo::getInstance()->values($alumno) ?>
   <tr>
     <td><?=$d["persona"]->nombre("AA")?></td>
     <td><?=$d["persona"]->nombre("Nn")?></td>
@@ -51,7 +51,7 @@ table, td, tr, th{
     <td><?=$d["sede"]->nombre("XX YY")?></td>
     <td>NO</td>
     <td>NO</td>
-    <td><?=$d["nomina"]->programaSiNo()?></td>
+    <td><?=$d["nomina2"]->programaSiNo()?></td>
   </tr>
 <? endforeach; ?>
 </table>

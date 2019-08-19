@@ -3,16 +3,6 @@ require_once("../config/config.php");
 require_once("class/model/Data.php");
 require_once("config/valuesClasses.php");
 
-function get_data($d){
-    return [
-      "nomina" => new Nomina2Values($d),
-      "persona" => new IdPersonaValues($d["persona_"]),
-      "comision" => new ComisionValues($d["comision_"]),
-      "division" => new DivisionValues($d["comision_"]["division_"]),
-      "sede" => new SedeValues($d["comision_"]["division_"]["sede_"]),
-    ];
-}
-
 $fechaAnio = (!empty($_GET["fecha_anio"])) ? $_GET["fecha_anio"] : null;
 $fechaSemestre = (!empty($_GET["fecha_semestre"])) ? $_GET["fecha_semestre"] : null;
 $title = "Alumnos DEA";
@@ -41,7 +31,9 @@ $ids = Dba::fetchAllColumns($sql, 0);
 
 $render = new Render();
 $render->setOrder(["com_dvi_sed_numero"=>"asc", "com_anio" => "asc", "com_semestre" => "asc", "com_dvi_numero" => "asc", "per_apellidos" => "asc", "per_nombres" => "asc"]);
-$alumnos = Dba::getAll("nomina2", $ids, $render);
+$sql = EntitySqlo::getInstanceRequire("nomina2")->getAll($ids, $render);
+$alumnos = Dba::fetchAll($sql);
+//$alumnos = Dba::getAll("nomina2", $ids, $render);
 
 
 $content = "alumnosDea/template.html";

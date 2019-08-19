@@ -21,8 +21,8 @@
 <? endforeach; ?>
         <tr>
           <td>TOTAL</td>
-          <td><?=$total_aprobados?></td>
-          <td><?=$total_faltantes?></td>
+          <td><?=$total_aprobados?> (<?=round(($total_aprobados*100/$total_asignaturas),2)?>%)</td>
+          <td><?=$total_faltantes?> (<?=round(($total_faltantes*100/$total_asignaturas),2)?>%)</td>
           <td><?=$total_asignaturas?></td>
         </tr>
       </tbody>

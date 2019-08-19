@@ -28,9 +28,11 @@ $cu = CursoSqlo::getInstance()->values($comision[0]); ?>
               <p><a class="btn btn-outline-primary btn-sm" href="<?=PATH_HTTP_SITE?>alumnosComision?id=<?=$co['comision']->id()?>"><?=$co["alumnos"]?> ALUMNOS</a></p>
             </td>
             <td><?=$cu["asignatura"]->nombre()?>
-              <br><?=$cu["asignatura"]->codigo()?>
+              <br><?=$cu["asignatura"]->codigo()?> - <a href="http://programacion.planfines2.com.ar/info/grillaSadCompleta/?curso=<?=$cu['curso']->id()?>">Grilla</a>
             </td>
-            <td><?=$cu["curso"]->horario()?></td>
+            <td><?=$cu["curso"]->horario()?>
+              
+            </td>
             <td>
               <?if(key_exists($cu["curso"]->id(), $tomas)): foreach ($tomas[$cu["curso"]->id()] as $toma): $to = TomaSqlo::getInstance()->values($toma) ?>
                 <p class="<?=$to["toma"]->background()?>">
@@ -53,7 +55,7 @@ $cu = CursoSqlo::getInstance()->values($comision[0]); ?>
         <tr>
     
           <td><?=$cu["asignatura"]->nombre()?>
-            <br><?=$cu["asignatura"]->codigo()?>
+            <br><?=$cu["asignatura"]->codigo()?> - <a href="http://programacion.planfines2.com.ar/info/grillaSadCompleta/?curso=<?=$cu['curso']->id()?>">Grilla</a>
           </td>
           <td><?=$cu["curso"]->horario()?></td>
           <td>
@@ -63,6 +65,7 @@ $cu = CursoSqlo::getInstance()->values($comision[0]); ?>
               <?=$to["profesor"]?>
               <?else:?>
               <a href="../infoDocente/?id=<?=$to['profesor']->id()?>"><?=$to["profesor"]->nombre("AA, Nn")?></a>
+              <strong><?=$to["toma"]->estadosAbr()?></strong>
               <br><?=$to["profesor"]->telefonos()?>
               <br><?=$to["profesor"]->email()?>
               <?endif;?>

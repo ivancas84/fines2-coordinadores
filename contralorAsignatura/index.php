@@ -6,7 +6,7 @@
 
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("function/fecha_anios.php");
 require_once("function/fecha_semestres.php");
 
@@ -51,7 +51,7 @@ $render->setCondition([
     ["estado_contralor","=","Pasar"]
 ]);
 $render->setOrder(["pro__numero_documento" => "ASC"]);
-$sql = TomaSqlo::getInstance()->all($render);
+$sql = EntitySqlo::getInstanceRequire("toma")->all($render);
 $rows = Dba::fetchAll($sql);
 //$sql = Data::contralorPeriodo($fechaAnio, $fechaSemestre, $clasificacion);
 //$rows = Dba::fetchAll($sql);

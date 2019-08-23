@@ -13,7 +13,7 @@
     </tr>
   </thead>
   <tbody>
-<? foreach($rows as $row): $p = IdPersonaSqlo::getInstance()->values($row); ?>
+<? foreach($rows as $row): $p = EntitySqlo::getInstanceRequire("id_persona")::getInstance()->values($row); ?>
     <tr>
       <td><?=$p["id_persona"]->nombre("AA Nn")?></td>
       <td><?=$p["id_persona"]->cuil()?></td>

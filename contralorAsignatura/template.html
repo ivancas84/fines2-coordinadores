@@ -9,7 +9,7 @@
 
 <table>
 <?
-foreach($rows as $row): $r = TomaSqlo::getInstance()->values($row); 
+foreach($rows as $row): $r = EntitySqlo::getInstanceRequire("toma")->values($row); 
 ?>
 <tr>
   <td>Ad referendum</td>

@@ -1,7 +1,6 @@
 <?php
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
 
 $fechaAnio = (!empty($_GET["fecha_anio"])) ? $_GET["fecha_anio"] : null;
 $fechaSemestre = (!empty($_GET["fecha_semestre"])) ? $_GET["fecha_semestre"] : null;

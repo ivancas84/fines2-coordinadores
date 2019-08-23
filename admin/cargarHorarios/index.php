@@ -131,7 +131,7 @@ function cursos_autorizados($fecha_anio, $fecha_semestre){
         ["com_dvi__clasificacion_nombre","=","Fines"]
     ]);
     $render->setOrder(["comision" => "ASC"]);  
-    $sql = CursoSqlo::getInstance()->all($render);
+    $sql = EntitySqlo::getInstanceRequire("curso")->all($render);
     return Dba::fetchAll($sql);
 }
 

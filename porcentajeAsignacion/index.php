@@ -2,7 +2,7 @@
 
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("function/array_combine_key.php");
 require_once("function/array_combine_keys.php");
 require_once("function/array_unique_key.php");
@@ -59,7 +59,7 @@ function cursos($fechaAnio, $fechaSemestre, $dependencia, $clasificacion){
   $render->setCondition($filtros);
   $render->setOrder(["ch_asi_nombre" => "ASC"]);
   
-  $sql = CursoSqlo::getInstance()->all($render);
+  $sql = EntitySqlo::getInstanceRequire("curso")->all($render);
   return Dba::fetchAll($sql);  
 }
 
@@ -69,7 +69,7 @@ function cursos_cantidad($idCursos){
   $render->setGroup(["ch_asi_id"]);
   $render->setCondition([ "id","=", $idCursos]);
 
-  $sql = CursoSqlo::getInstance()->advanced($render);
+  $sql = EntitySqlo::getInstanceRequire("curso")->advanced($render);
   return array_combine_key(Dba::fetchAll($sql), "ch_asi_id");
 }
 
@@ -82,7 +82,7 @@ function cursos_aprobados($idCursos){
     [ "toma_activa","=", true]
   ]);
 
-  $sql = CursoSqlo::getInstance()->advanced($render);
+  $sql = EntitySqlo::getInstanceRequire("curso")->advanced($render);
   $cursosAprobados = Dba::fetchAll($sql);
   if(empty($cursosAprobados)) return [];
   return array_combine_key($cursosAprobados, "ch_asi_id");
@@ -96,7 +96,7 @@ function cursos_faltantes($idCursos){
     [ "id","=", $idCursos],
     [ "toma_activa","=", false]
   ]);
-  $sql = CursoSqlo::getInstance()->advanced($render);
+  $sql = EntitySqlo::getInstanceRequire("curso")->advanced($render);
   $cursosFaltantes = Dba::fetchAll($sql);
   if(empty($cursosFaltantes)) return [];
   return array_combine_key($cursosFaltantes, "ch_asi_id");

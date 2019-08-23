@@ -1,7 +1,7 @@
 <?php
 
 require_once("../config/config.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("class/model/Dba.php");
 require_once("function/array_unique_key.php");
 
@@ -28,7 +28,7 @@ function id_alumnos($search, $dependencia){
     ["persona","=",true]
   ]);
 
-  $sql = Nomina2Sqlo::getInstance()->all($render);
+  $sql = EntitySqlo::getInstanceRequire("nomina2")->all($render);
   return array_unique_key(Dba::fetchAll($sql), "persona");
 }
 
@@ -37,6 +37,6 @@ function alumnos($idAlumnos){
   $render = new Render();
   $render->setCondition(["id","=", $idAlumnos]);
   $render->setOrder(["apellidos" => "ASC", "nombres" => "ASC"]);
-  $sql = IdPersonaSqlo::getInstance()->all($render);
+  $sql = EntitySqlo::getInstanceRequire("id_persona")::getInstance()->all($render);
   return Dba::fetchAll($sql);
 }

@@ -19,7 +19,7 @@ echo "+ se han obtenido " . count($comisiones_autorizadas) . " comisiones autori
 $sql = "";
 $detail = [];
 foreach($comisiones_autorizadas as $ca){
-    $c = ComisionSqlo::getInstance()->values($ca);    
+    $c = EntitySqlo::getInstanceRequire("comision")->values($ca);    
     echo "* procesar comision " . $c["division"]->numero() . "/" . $c["comision"]->tramo() . "<br>";
 
     $nuevoId = Dba::uniqId();
@@ -29,7 +29,7 @@ foreach($comisiones_autorizadas as $ca){
         echo "+ La comision siguiente ya existe, se continua con la siguiente<br>";
     } else {
         echo "+ Se agregara nueva comision " .  $c["division"]->numero() . "/" . $nuevaComision->tramo() . "<br>"; 
-        $persist = ComisionSqlo::getInstance()->insert($nuevaComision->toArray());
+        $persist = EntitySqlo::getInstanceRequire("comision")->insert($nuevaComision->toArray());
         
         $sql .= $persist["sql"];
         $detail = array_merge($detail, $persist["detail"]);
@@ -59,12 +59,12 @@ function comisiones_autorizadas($fecha_anio, $fecha_semestre){
         ["dvi__clasificacion_nombre","=","Fines"]
     ]);
     $render->setOrder(["anio" => "ASC", "semestre"=>"ASC"]);  
-    $sql = ComisionSqlo::getInstance()->all($render);
+    $sql = EntitySqlo::getInstanceRequire("comision")->all($render);
     return Dba::fetchAll($sql);
 }
 
 function existe_nueva_comision($nuevaComision){
-    $sql = ComisionSqlo::getInstance()->all([
+    $sql = EntitySqlo::getInstanceRequire("comision")->all([
         ["anio","=",$nuevaComision->anio()],
         ["semestre","=",$nuevaComision->semestre()],
         ["division","=",$nuevaComision->division()],
@@ -89,7 +89,7 @@ function definir_nueva_comision($comision, $nuevoId){
 }
 
 function actualizar_comision_anterior($comision, $nuevoId){
-    return ComisionSqlo::getInstance()->update([
+    return EntitySqlo::getInstanceRequire("comision")->update([
         "id" => $comision->id(),
         "comision_siguiente" => $nuevoId,
     ]); 

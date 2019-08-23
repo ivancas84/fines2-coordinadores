@@ -2,7 +2,8 @@
 
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
+
 require_once("function/array_combine_key.php");
 require_once("function/array_combine_keys.php");
 require_once("function/array_unique_key.php");
@@ -52,7 +53,7 @@ function cursos($fechaAnio, $fechaSemestre, $dependencia, $clasificacion){
  
   $render->setOrder(["com_dvi_sed_numero" => "ASC", "com_anio" => "ASC", "com_semestre" => "ASC"]);
 
-  $sql = CursoSqlo::getInstance()->all($render);
+  $sql = EntitySqlo::getInstanceRequire("curso")->all($render);
   return Dba::fetchAll($sql);
 }
 
@@ -66,7 +67,7 @@ function tomas($idCursos){
   $render->setCondition($filtros);
   $render->setOrder(["cur_com_dvi_sed_numero" => "ASC", "cur_com_anio" => "ASC", "cur_com_semestre" => "ASC"]);
   
-  $sql = TomaSqlo::getInstance()->all($render);
+  $sql = EntitySqlo::getInstanceRequire("toma")->all($render);
   return Dba::fetchAll($sql);
 }
 
@@ -79,7 +80,7 @@ function cantidad_alumnos($idComisiones){
     ["activo","=",true]
   ]);
 
-  $sql = Nomina2Sqlo::getInstance()->advanced($render);
+  $sql = EntitySqlo::getInstanceRequire("nomina2")->advanced($render);
 
   $cantidadAlumnos_ = Dba::fetchAll($sql);
   return array_combine_key($cantidadAlumnos_, "comision");
@@ -90,7 +91,7 @@ function comision_values($comision) {
 
   $curso_ = reset($comision);
   $idComision = $curso_["comision"];
-  $ret = CursoSqlo::getInstance()->values($curso_);
+  $ret = EntitySqlo::getInstanceRequire("curso")->values($curso_);
   $ret["alumnos"] = key_exists($idComision, $cantidadAlumnos) ? $cantidadAlumnos[$idComision]["_cantidad"] : 0; 
   return $ret;
 }

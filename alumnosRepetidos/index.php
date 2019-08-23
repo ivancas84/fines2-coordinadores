@@ -1,7 +1,7 @@
 <?php
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 
 
 $fechaAnio = $_GET["fecha_anio"];

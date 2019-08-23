@@ -54,7 +54,7 @@ function id_comisiones($cargasHorariasExistentes = null){
      * no se incluyen aquellas que tengan definida la carga horaria
      * se selecciona la de mayor id (una por cada carga horaria existente)
      */
-    $sqlo = CursoSqlo::getInstance();
+    $sqlo = EntitySqlo::getInstanceRequire("curso");
     $render = new RenderAux;
     $render->setAggregate(["max_comision"]);
     $render->setGroup(["carga_horaria"]);

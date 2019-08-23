@@ -1,7 +1,7 @@
 <?php
 
 require_once("../config/config.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("class/model/Dba.php");
 require_once("class/Filter.php");
 require_once("function/formatDate.php");
@@ -13,7 +13,7 @@ function get_data($row){
   global $total;
 
   $total += intval($row["_cantidad"]);
-  $v["comision"] = new ComisionValues();
+  $v["comision"] = EntityValues::getInstanceRequire("comision"); 
   $v["comision"]->fromArray($row); 
   $v["cantidad"] = $row["_cantidad"];
 
@@ -46,9 +46,9 @@ $render->setCondition([
 ]);
 $render->setOrder(["tramo"=>"asc"]);
 
-$sql = ComisionSqlo::getInstance()->advanced($render);
+$sql = EntitySqlo::getInstanceRequire("comision")->advanced($render);
 $rows = Dba::fetchAll($sql);
-$sql = IdPersonaSqlo::getInstance()->getAll([$coordinador]);
+$sql = EntitySqlo::getInstanceRequire("id_persona")::getInstance()->getAll([$coordinador]);
 $persona= new IdPersonaValues();
 $persona->fromArray(Dba::fetchAssoc($sql));
 $total = 0;

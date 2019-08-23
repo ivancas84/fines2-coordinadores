@@ -1,6 +1,6 @@
 <?php
 require_once("../config/config.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("class/model/Dba.php");
 require_once("class/Filter.php");
 require_once("function/array_group_value.php");
@@ -10,7 +10,7 @@ require_once("class/model/Data.php");
 
 
 $id = Filter::request("id");
-$sql = IdPersonaSqlo::getInstance()->getAll([$id]);
+$sql = EntitySqlo::getInstanceRequire("id_persona")::getInstance()->getAll([$id]);
 $persona = IdPersonaValues::getInstanceFromArray(Dba::fetchAssoc($sql));
 $periodos = periodos($id);
 
@@ -25,6 +25,6 @@ function periodos($idPersona){
   $render = new Render();
   $render->setCondition(["persona", "=", $idPersona]);
   $render->setOrder(["com_fecha" => "DESC"]);
-  $sql = Nomina2Sqlo::getInstance()->all($render);
+  $sql = EntitySqlo::getInstanceRequire("nomina2")->all($render);
   return array_group_value(Dba::fetchAll($sql), "com_periodo");
 }

@@ -4,10 +4,10 @@
   </thead>
   <tbody>
 <? foreach($alumnos as $row):
-  $nomina = new Nomina2Values($row);
-  $persona = new IdPersonaValues($row["persona_"]);
-  $comision = new ComisionValues($row["comision_"]);
-  $division = new DivisionValues($row["comision_"]["division_"]);
+  $nomina = EntityValues::getInstanceRequire("nomina2", $row);
+  $persona = EntityValues::getInstanceRequire("id_persona", $row["persona_"]);
+  $comision = EntityValues::getInstanceRequire("comision", $row["comision_"]);
+  $division = EntityValues::getInstanceRequire("division", $row["comision_"]["division_"]);
 
 ?>
     <tr>

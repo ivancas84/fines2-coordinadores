@@ -1,7 +1,7 @@
 <?php
 
 require_once("../config/config.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("class/model/Dba.php");
 require_once("class/Filter.php");
 require_once("function/formatDate.php");
@@ -9,7 +9,7 @@ require_once("class/SpanishDateTime.php");
 require_once("class/model/values/idPersona/IdPersona.php");
 require_once("class/model/Data.php");
 
-function get_data($toma){
+/*function get_data($toma){
 
   $v["toma"] = new TomaValues($toma);
   $v["sede"] = new SedeValues($toma["curso_"]["comision_"]["division_"]["sede_"]);
@@ -19,7 +19,7 @@ function get_data($toma){
   $v["asignatura"] = new AsignaturaValues($toma["curso_"]["carga_horaria_"]["asignatura_"]);
   $v["carga_horaria"] = new CargaHorariaValues($toma["curso_"]["carga_horaria_"]);
   return $v;
-}
+}*/
 
 $id = Filter::request("id");
 $persona_ = Dba::get("id_persona", $id);

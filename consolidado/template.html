@@ -14,7 +14,7 @@
 
 <? foreach($comisiones as $comision): 
 $co = comision_values($comision);
-$cu = CursoSqlo::getInstance()->values($comision[0]); ?>
+$cu = EntitySqlo::getInstanceRequire("curso")->values($comision[0]); ?>
         <tr>
             <td rowspan="5">
               <p><strong><?=$co["sede"]->numero()?></strong> <?=$co["sede"]->nombre()?></p>
@@ -34,7 +34,7 @@ $cu = CursoSqlo::getInstance()->values($comision[0]); ?>
               
             </td>
             <td>
-              <?if(key_exists($cu["curso"]->id(), $tomas)): foreach ($tomas[$cu["curso"]->id()] as $toma): $to = TomaSqlo::getInstance()->values($toma) ?>
+              <?if(key_exists($cu["curso"]->id(), $tomas)): foreach ($tomas[$cu["curso"]->id()] as $toma): $to = EntitySqlo::getInstanceRequire("toma")->values($toma) ?>
                 <p class="<?=$to["toma"]->background()?>">
                 <?if(is_string($to["profesor"])):?> 
                 <?=$to["profesor"]?>
@@ -51,7 +51,7 @@ $cu = CursoSqlo::getInstance()->values($comision[0]); ?>
               <?endif?>
             </td>
         </tr>
-<? for($i =1; $i < count($comision); $i++): $cu = CursoSqlo::getInstance()->values($comision[$i]);?>
+<? for($i =1; $i < count($comision); $i++): $cu = EntitySqlo::getInstanceRequire("curso")->values($comision[$i]);?>
         <tr>
     
           <td><?=$cu["asignatura"]->nombre()?>
@@ -59,7 +59,7 @@ $cu = CursoSqlo::getInstance()->values($comision[0]); ?>
           </td>
           <td><?=$cu["curso"]->horario()?></td>
           <td>
-            <?if(key_exists($cu["curso"]->id(), $tomas)): foreach ($tomas[$cu["curso"]->id()] as $toma): $to = TomaSqlo::getInstance()->values($toma) ?>
+            <?if(key_exists($cu["curso"]->id(), $tomas)): foreach ($tomas[$cu["curso"]->id()] as $toma): $to = EntitySqlo::getInstanceRequire("toma")->values($toma) ?>
               <p class="<?=$to["toma"]->background()?>">
               <?if(is_string($to["profesor"])):?> 
               <?=$to["profesor"]?>

@@ -7,7 +7,7 @@
       </tr>
     </thead>
     <tbody>
-<? foreach($sedes as $sede): $d = SedeSqlo::getInstance()->values($sede); ?>
+<? foreach($sedes as $sede): $d = EntitySqlo::getInstanceRequire("sede")::getInstance()->values($sede); ?>
       <tr>
           <td>
             <p><strong><?=$d["sede"]->numero()?></strong> <?=$d["sede"]->nombre()?></p>
@@ -17,7 +17,7 @@
           <td>
             <? if(key_exists($d["sede"]->id(), $sedesReferentes)): ?>
             <table>
-              <? foreach($sedesReferentes[$d["sede"]->id()] as $sr): $r = ReferenteSqlo::getInstance()->values($sr); ?>
+              <? foreach($sedesReferentes[$d["sede"]->id()] as $sr): $r = EntitySqlo::getInstanceRequire("referente")::getInstance()->values($sr); ?>
               <tr>
                 <td>
                   <p><?=$r["persona"]->apellidos("X") ?> <?=$r["persona"]->nombres("Xx Yy") ?></p>

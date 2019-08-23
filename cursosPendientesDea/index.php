@@ -1,7 +1,7 @@
 <?php
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("function/array_combine_key.php");
 
 
@@ -31,7 +31,7 @@ $filters = [
 $render = new Render();
 $render->addAdvanced($filters);
 $render->setOrder(["ch_asi_nombre" => true, "com_dvi_sed_numero"=> true, "com_anio"=> true, "com_semestre"=> true]);
-$sql = CursoSqlo::getInstance()->select(
+$sql = EntitySqlo::getInstanceRequire("curso")->select(
   "count(curs.id) as cursos, sum(ch.horas_catedra) as suma_horas_catedra", 
   $render
 );

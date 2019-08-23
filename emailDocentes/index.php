@@ -2,7 +2,7 @@
 
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("function/array_combine_key.php");
 require_once("function/array_combine_keys.php");
 require_once("function/array_unique_key.php");
@@ -35,7 +35,7 @@ $filtros = [
 $render = new Render();
 $render->setCondition($filtros);
 $render->setOrder(["pro_email"=>"asc"]);
-$sql = TomaSqlo::getInstance()->all($render);
+$sql = EntitySqlo::getInstanceRequire("toma")->all($render);
 $emails = array_unique_key(Dba::fetchAll($sql), "pro_email");
 
 $content = "emailDocentes/template.html";

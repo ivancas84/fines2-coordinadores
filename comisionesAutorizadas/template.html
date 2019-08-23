@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-<? for($i = 0; $i < count($comisiones); $i++): $c = ComisionSqlo::getInstance()->values($comisiones[$i]); ?>
+<? for($i = 0; $i < count($comisiones); $i++): $c = EntitySqlo::getInstanceRequire("comision")->values($comisiones[$i]); ?>
 <tr class="<?=$c["comision"]->background()?>">
   <td><?=$i+1?></td>
   <td><strong><big><?=$c["division"]->numero() . "/" . $c["comision"]->tramo()?></big></strong></td>

@@ -2,7 +2,7 @@
 
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("function/array_combine_key.php");
 require_once("function/array_combine_keys.php");
 require_once("function/array_unique_key.php");
@@ -46,7 +46,7 @@ function cursos($fechaAnio, $fechaSemestre, $dependencia, $clasificacion){
     "ch_asi_nombre" => "ASC"
   ]);
 
-  $sql = CursoSqlo::getInstance()->all($render);
+  $sql = EntitySqlo::getInstanceRequire("curso")->all($render);
   return Dba::fetchAll($sql);
 }
 

@@ -38,7 +38,7 @@ table, td, tr, th{
 <body>
 
 <table>
-<? foreach($alumnos as $alumno): $d = Nomina2Sqlo::getInstance()->values($alumno) ?>
+<? foreach($alumnos as $alumno): $d = EntitySqlo::getInstanceRequire("nomina2")->values($alumno) ?>
   <tr>
     <td><?=$d["persona"]->nombre("AA")?></td>
     <td><?=$d["persona"]->nombre("Nn")?></td>

@@ -2,7 +2,7 @@
 
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("function/array_combine_key.php");
 require_once("function/array_combine_keys.php");
 require_once("function/array_unique_key.php");
@@ -31,7 +31,7 @@ if(!empty($sedes)){
         ["baja", "=", false]
     ]);
 
-    $sql = ReferenteSqlo::getInstance()->all(["sede","=",$idSedes]);
+    $sql = EntitySqlo::getInstanceRequire("referente")::getInstance()->all(["sede","=",$idSedes]);
     $referentes = Dba::fetchAll($sql);
     $sedesReferentes = array_group_value($referentes, "sede");
 }
@@ -53,6 +53,6 @@ function sedes($fechaAnio, $fechaSemestre, $clasificacion, $dependencia){
     ]);
     $render->setOrder(["numero" => "ASC"]);
     
-    $sql = SedeSqlo::getInstance()->all($render);
+    $sql = EntitySqlo::getInstanceRequire("sede")::getInstance()->all($render);
     return Dba::fetchAll($sql);
 }

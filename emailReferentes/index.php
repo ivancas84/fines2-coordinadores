@@ -2,7 +2,7 @@
 
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("function/array_combine_key.php");
 require_once("function/array_combine_keys.php");
 require_once("function/array_unique_key.php");
@@ -29,7 +29,7 @@ $filtros = [
 $render = new Render();
 $render->setCondition($filtros);
 $render->setOrder(["per_email"=>"asc"]);
-$sql = ReferenteSqlo::getInstance()->all($render);
+$sql = EntitySqlo::getInstanceRequire("referente")::getInstance()->all($render);
 $emails = array_unique_key(Dba::fetchAll($sql), "per_email");
 
 

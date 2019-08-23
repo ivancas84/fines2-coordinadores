@@ -3,7 +3,7 @@
 require_once("../config/config.php");
 require_once("class/model/Data.php");
 require_once("class/model/Render.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("function/array_combine_keys.php");
 require_once("function/fecha_anios.php");
 require_once("function/fecha_semestres.php");
@@ -37,7 +37,7 @@ switch ($orden){
     case "Dependencia": $render->setOrder(["dependencia"=> "ASC", "dvi_sed_numero"=>"asc", "anio"=>"asc", "semestre"=>"asc"]); break;
     case "Coordinador": $render->setOrder(["dvi_sed_coo_nombres"=>"ASC", "dvi_sed_numero"=>"asc", "anio"=>"asc", "semestre"=>"asc"]); break;
 }
-$sql = ComisionSqlo::getInstance()->all($render);
+$sql = EntitySqlo::getInstanceRequire("comision")->all($render);
 $comisiones = Dba::fetchAll($sql);
   
   

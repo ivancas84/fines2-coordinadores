@@ -15,7 +15,7 @@
     </thead>
     <tbody>
 
-<? foreach($cursos as $curso): $cu = CursoSqlo::getInstance()->values($curso) ?>
+<? foreach($cursos as $curso): $cu = EntitySqlo::getInstanceRequire("curso")->values($curso) ?>
         <tr>
             <td><?=$cu["profesor"]->apellidos("X")?></td>
             <td><?=$cu["profesor"]->nombres("Xx Yy")?></td>

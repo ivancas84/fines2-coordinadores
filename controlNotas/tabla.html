@@ -15,7 +15,7 @@
     </thead>
     <tbody>
 
-<? foreach($comisiones as $comision => $cursos): $co = CursoSqlo::getInstance()->values($cursos[0]) ?>
+<? foreach($comisiones as $comision => $cursos): $co = EntitySqlo::getInstanceRequire("curso")->values($cursos[0]) ?>
         <tr>
             <td rowspan="<?=count($cursos)?>"><?=$co["division"]->numero()?>/<?=$co["comision"]->tramo()?></td>
             <td rowspan="<?=count($cursos)?>">
@@ -32,7 +32,7 @@
             <td></td>
             <td></td>
         </tr>
-        <?for($i = 1; $i < count($cursos); $i++): $cu = CursoSqlo::getInstance()->values($cursos[$i])?>
+        <?for($i = 1; $i < count($cursos); $i++): $cu = EntitySqlo::getInstanceRequire("curso")->values($cursos[$i])?>
         <tr>
           <td><?=$cu["asignatura"]->nombre()?></td>
           <td><?=$cu["curso"]->horario()?></td>

@@ -7,7 +7,7 @@
 
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("function/dni_to_cuil.php");
 
 
@@ -48,7 +48,7 @@ $render = new Render();
 $render->setCondition($filtros);
 $render->setOrder(["pro_apellidos"=>"asc", "pro_nombres"=>"asc"]);
 
-$sql = TomaSqlo::getInstance()->profesorSumaHorasCatedraAll($render);
+$sql = EntitySqlo::getInstanceRequire("toma")->profesorSumaHorasCatedraAll($render);
 $horas = Dba::fetchAll($sql);
 $idsProfesores = array_values(array_unique(array_column ($horas ,"profesor")));
 $personas = Dba::getAll("id_persona", $idsProfesores);
@@ -85,9 +85,9 @@ foreach($personas as $persona) {
     echo $i . " " ;
     print_persona($persona);
     echo "CUIL VACIO SE CARGARA EL CUIL: " . $cuil . "<br><br>";
-    $idPersonaSqlo = new IdPersonaSqlo();
+    $EntitySqlo::getInstanceRequire("id_persona") = new EntitySqlo::getInstanceRequire("id_persona")();
     $row = array("id" => $persona["id"], "cuil" => $cuil);
-    $persist = $idPersonaSqlo->update($row);
+    $persist = $EntitySqlo::getInstanceRequire("id_persona")->update($row);
     $sql .= $persist["sql"];
 
   } else {

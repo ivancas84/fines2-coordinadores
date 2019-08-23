@@ -1,7 +1,7 @@
 <?php
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("function/array_combine_key.php");
 
 
@@ -42,7 +42,7 @@ $render = new Render();
 $render->setCondition($filtros);
 $render->setOrder(["pro_apellidos"=>"asc", "pro_nombres"=>"asc"]);
 
-$sql = TomaSqlo::getInstance()->profesorSumaHorasCatedraAll($render);
+$sql = EntitySqlo::getInstanceRequire("toma")->profesorSumaHorasCatedraAll($render);
 $horas = Dba::fetchAll($sql);
 $idsProfesores = array_values(array_unique(array_column ($horas ,"profesor")));
 $profesores_ = Dba::getAll("id_persona", $idsProfesores);

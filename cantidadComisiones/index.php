@@ -1,7 +1,7 @@
 <?php
 
 require_once("../config/config.php");
-require_once("config/valuesClasses.php");
+require_once("class/model/Values.php");
 require_once("class/model/Dba.php");
 require_once("class/Filter.php");
 require_once("function/formatDate.php");
@@ -22,7 +22,7 @@ function get_data($row){
 
   $total += intval($row["_cantidad"]);
 
-  $v["comision"] = new ComisionValues();
+  $v["comision"] = EntityValues::getInstanceRequire("comision");
   $v["comision"]->fromArray($row);
   $v["cantidad"] = $row["_cantidad"];
 
@@ -54,7 +54,7 @@ $render->setCondition([
 ]);
 $render->setOrder(["tramo"=>"asc"]);
 
-$sql = ComisionSqlo::getInstance()->advanced($render);
+$sql = EntitySqlo::getInstanceRequire("comision")->advanced($render);
 $rows = Dba::fetchAll($sql);
 $total = 0;
 

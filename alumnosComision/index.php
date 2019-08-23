@@ -2,7 +2,6 @@
 
 require_once("../config/config.php");
 require_once("class/model/Data.php");
-require_once("config/valuesClasses.php");
 require_once("function/array_combine_key.php");
 require_once("function/array_combine_keys.php");
 require_once("function/array_unique_key.php");
@@ -19,7 +18,7 @@ $render = new Render();
 $render->setCondition(["comision", "=", $comision]);
 $render->setOrder(["activo" => "DESC", "per_apellidos" => "ASC", "per_nombres" => "ASC"]);
 
-$sqlo = Nomina2Sqlo::getInstance();
+$sqlo = EntitySqlo::getInstanceRequire("nomina2");
 $sql = $sqlo->all($render);
 $alumnos = Dba::fetchAll($sql);
 //$alumnos = $sqlo->valuesAll($alumnos);

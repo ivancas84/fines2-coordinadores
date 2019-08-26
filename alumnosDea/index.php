@@ -25,7 +25,7 @@ $filtros = [
     "autorizada" => true,
 ];
 
-$sql = EntitySqlo::getInstanceFromString("nomina2")->idsActivosFiltros($filtros);
+$sql = EntitySqlo::getInstanceString("nomina2")->idsActivosFiltros($filtros);
 $ids = Dba::fetchAllColumns($sql, 0);
 
 $render = new Render();
@@ -42,7 +42,7 @@ require_once("index/index.html");
 $render = new Render();
 $render->setOrder(["com_dvi_sed_numero"=>"asc", "com_anio" => "asc", "com_semestre" => "asc", "com_dvi_numero" => "asc", "per_apellidos" => "asc", "per_nombres" => "asc"]);
 
-return EntitySql::getInstanceFromString("nomina2")->jsonAll($rows);
+return EntitySql::getInstanceString("nomina2")->jsonAll($rows);
 
 require_once("html/nominaDea.html");
 */

@@ -11,7 +11,7 @@ require_once("class/model/Data.php");
 
 $id = Filter::request("id");
 $sql = EntitySqlo::getInstanceRequire("id_persona")::getInstance()->getAll([$id]);
-$persona = IdPersonaValues::getInstanceFromArray(Dba::fetchAssoc($sql));
+$persona = EntityValues::getInstanceRequire("id_persona", Dba::fetchAssoc($sql));
 $periodos = periodos($id);
 
 $content = "infoAlumno/template.html";

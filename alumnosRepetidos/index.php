@@ -9,10 +9,10 @@ $fechaSemestre = $_GET["fecha_semestre"];
 
 $render = new Render();
 $render->setOrder(["per_apellidos"=>"asc", "per_nombres" => "asc", "per_numero_documento" => "asc"]);
-$sql = EntitySqlo::getInstanceFromString("nomina2")->repetidosPeriodoAll($fechaAnio, $fechaSemestre, $render);
+$sql = EntitySqlo::getInstanceString("nomina2")->repetidosPeriodoAll($fechaAnio, $fechaSemestre, $render);
 
 $rows =  Dba::fetchAll($sql);
-$alumnos = EntitySqlo::getInstanceFromString("nomina2")->jsonAll($rows);
+$alumnos = EntitySqlo::getInstanceString("nomina2")->jsonAll($rows);
 
 $content = "./template.html";
 $title = "Alumnos Repetidos";

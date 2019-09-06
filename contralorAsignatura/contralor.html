@@ -17,7 +17,7 @@ foreach($rows as $row): $r = EntitySqlo::getInstanceRequire("toma")->values($row
   <td><?=$r["profesor"]->cuilNumero()?></td>
   <td><?=$r["profesor"]->cuilDigito()?></td>
   <td></td>
-  <td><?=$r["profesor"]->fechaNacimiento()?></td>
+  <td><?=$r["profesor"]->fechaNacimiento("d/m/Y")?></td>
   <td><?=$r["profesor"]->nombre("AA, Nn")?></td>
   <td>P</td>
   <td></td>

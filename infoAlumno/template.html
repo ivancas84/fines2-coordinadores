@@ -47,10 +47,10 @@
         <tr class="<?=$v['nomina2']->background()?>">
           <td><?=$v["sede"]->nombre()?></td>
           <td><?=$v["division"]->numero()?>/<?=$v["comision"]->anio()?><?=$v["comision"]->semestre()?></td>
-          <td><?=$v["nomina2"]->fotocopiaDocumento()?></li>
-          <td><?=$v["nomina2"]->partidaNacimiento()?></li>
-          <td><?=$v["nomina2"]->constanciaCuil()?></li>
-          <td><?=$v["nomina2"]->certificadoEstudios()?></li>
+          <td><?=$v["nomina2"]->fotocopiaDocumento("si")?></li>
+          <td><?=$v["nomina2"]->partidaNacimiento("si")?></li>
+          <td><?=$v["nomina2"]->constanciaCuil("si")?></li>
+          <td><?=$v["nomina2"]->certificadoEstudios("si")?></li>
           <td><?=$v["nomina2"]->anioIngreso()?></li>
           <td><?=$v["nomina2"]->observaciones()?></li>
           <td><?=$v["nomina2"]->programa()?></li>

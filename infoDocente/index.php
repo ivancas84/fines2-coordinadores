@@ -14,7 +14,7 @@ require_once("function/array_group_value.php");
 $id = Filter::request("id");
 
 $sql = EntitySqlo::getInstanceRequire("id_persona")->getAll([$id]);
-$persona =  EntitySqlo::getInstanceRequire("id_persona", Dba::fetchAssoc($sql));
+$persona =  EntityValues::getInstanceRequire("id_persona", Dba::fetchAssoc($sql));
 //$dependencia = $_SESSION["dependencia"];
 
 $render = new Render();

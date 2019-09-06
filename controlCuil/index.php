@@ -6,101 +6,46 @@
  */
 
 require_once("../config/config.php");
-require_once("class/model/Data.php");
+require_once("class/model/Dba.php");
 require_once("class/model/Values.php");
+require_once("class/model/Sqlo.php");
 require_once("function/dni_to_cuil.php");
+require_once("function/array_unique_key.php");
 
 
+$tomas = Dba::all("toma",[
+  ["profesor","=",true],
+  ["cur_com_fecha_anio","=","2019"],
+  ["cur_com_fecha_semestre","=",2],
+  ["cur_com_autorizada","=",true],  
+]);
 
-$fechaAnio = (!empty($_GET["fecha_anio"])) ? $_GET["fecha_anio"] : null;
-$fechaSemestre = (!empty($_GET["fecha_semestre"])) ? $_GET["fecha_semestre"] : null;
-$title = "Docentes DEA";
+$ids = array_unique_key($tomas, "profesor");
 
-$fechaAnioOptions = [2019, 2018, 2017, 2016];
-$fechaSemestreOptions = [1, 2];
+$personas = Dba::getAll("id_persona", $ids);
 
-
-$fechaAnio = (!empty($_GET["fecha_anio"])) ? $_GET["fecha_anio"] : null;
-$fechaSemestre = (!empty($_GET["fecha_semestre"])) ? $_GET["fecha_semestre"] : null;
-$title = "Docentes DEA";
-
-$fechaAnioOptions = [2019, 2018, 2017, 2016];
-$fechaSemestreOptions = [1, 2];
-
-if(!$fechaAnio || !$fechaSemestre) { //si no esta definido el periodo se da la opcion de definirlo
-    $content = "_periodo/index.html";
-    $action = "";
-    
-    require_once("index/menu.html");
-    return;
-}
-
-$filtros = [
-    ["cur_com_dvi_sed_dependencia", "=", $_SESSION["dependencia"]],
-    ["cur_com_dvi__clasificacion", "=", $_SESSION["clasificacion"]],
-    ["cur_com_fecha_anio", "=", $fechaAnio],
-    ["cur_com_fecha_semestre", "=", $fechaSemestre],
-    ["cur_com_autorizada", "=", true],
-    ["profesor", "=", true]
-];
-
-$render = new Render();
-$render->setCondition($filtros);
-$render->setOrder(["pro_apellidos"=>"asc", "pro_nombres"=>"asc"]);
-
-$sql = EntitySqlo::getInstanceRequire("toma")->profesorSumaHorasCatedraAll($render);
-$horas = Dba::fetchAll($sql);
-$idsProfesores = array_values(array_unique(array_column ($horas ,"profesor")));
-$personas = Dba::getAll("id_persona", $idsProfesores);
-
-
-
-
-
-function print_persona($persona){
-  echo $persona["apellidos"] . " " . $persona["nombres"] . " " . $persona["numero_documento"] . " " . $persona["cuil"] . " " . $persona["genero"] . " " . $persona["fecha_nacimiento"] . "<br>";
-
-}
-
-$sql = "";  
-$i = 0;
-
+echo "<pre>";
 foreach($personas as $persona) {
-  $i++;
- 
-  if(empty($persona["numero_documento"] 
-  || empty($persona["genero"]) 
-  || (strlen($persona["numero_documento"]) < 7) 
-  || (strlen($persona["numero_documento"]) > 11)
-  || ((strpos(strtolower($persona["genero"]), 'f') !== false) && (strpos(strtolower($persona["genero"]), 'm') !== false)))) {
-    echo "ERROR DE DATOS, NO SERA PROCESADO<br>";
-    continue;
+  $idp = EntityValues::getInstanceRequire("id_persona", $persona);
+
+  if($idp->_check() !== true){
+    
+    echo "<br>ERROR DE DATOS: NO SE PROCESARA<br>";
+    print_r($idp->_check());
+    print_r($idp);
   }
 
-      
-  $g = (strpos(strtolower($persona["genero"]), 'f') !== false) ? "2" : "1";
-  $cuil = dni_to_cuil($persona["numero_documento"], $g);
+  $cuil = $idp->_calcularCuil();
+  if($idp->_isEmptyValue($idp->cuil())){
+    echo "<br>CUIL VACIO: SE DEFINIRA SQL PARA ACTUALIZAR " . $idp->nombres() . " ". $idp->apellidos() . "<br>";
 
-  if(empty($persona["cuil"])) {  
-    echo $i . " " ;
-    print_persona($persona);
-    echo "CUIL VACIO SE CARGARA EL CUIL: " . $cuil . "<br><br>";
-    $EntitySqlo::getInstanceRequire("id_persona") = new EntitySqlo::getInstanceRequire("id_persona")();
-    $row = array("id" => $persona["id"], "cuil" => $cuil);
-    $persist = $EntitySqlo::getInstanceRequire("id_persona")->update($row);
-    $sql .= $persist["sql"];
-
-  } else {
-    if($persona["cuil"] == $cuil) { /*echo "CUIL CORRECTO: " . $cuil . "<br>"; */ }
-    else {
-     echo $i . " " ;
-     print_persona($persona);
-     echo "CUIL INCORRECTO VERIFICAR: " . $cuil . "<br><br>";
-    }
+    $idp->setCuil($cuil);
+    $sql .= EntitySqlo::getInstanceRequire("id_persona")->update($idp->_toArray())["sql"];
+  } elseif($cuil !== $idp->cuil()) {
+    echo "<br>CUIL DIFERENTE DEL CALCULADO: SE DEFINIRA SQL PARA ACTUALIZAR " . $idp->nombres() . " ". $idp->apellidos() . " " . $idp->cuil() . "<br>";
+    $idp->setCuil($cuil);
+    $sql .= EntitySqlo::getInstanceRequire("id_persona")->update($idp->_toArray())["sql"];
   }
-  
-
-
 }
 
 echo $sql;

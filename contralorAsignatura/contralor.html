@@ -21,7 +21,7 @@ foreach($rows as $row): $r = EntitySqlo::getInstanceRequire("toma")->values($row
   <td><?=$r["profesor"]->nombre("AA, Nn")?></td>
   <td>P</td>
   <td></td>
-  <td><?=$r["asignatura"]->codigo()?></td>
+  <td><?=$r["asignatura"]->codigoONombre()?></td>
   <td><?=$r["carga_horaria"]->horasCatedra()?></td>
   <td>PF</td>
   <td><?=$r["comision"]->anio()?></td>

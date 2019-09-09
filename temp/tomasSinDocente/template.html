@@ -1,0 +1,12 @@
+<table >
+  <tbody>
+<? foreach($tomas as $row):  
+   $t = EntitySqlo::getInstanceRequire("toma")->values($row); 
+   ?>
+      <tr>
+        <td><?=$t["sede"]->numero()?>/<?=$t["comision"]->tramo()?></td>
+        <td><?=$t["asignatura"]->nombre()?></td>
+      </tr>
+ <? endforeach; ?>
+  </tbody>
+</table>

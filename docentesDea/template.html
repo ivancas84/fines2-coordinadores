@@ -5,48 +5,27 @@
 <title>FINES 2</title>
 <style>
 
-table {
-
-
-}
-
 table, td, tr, th{
   padding: 5px;
   border-collapse: collapse;
-    border: 1px solid black;
-
+  border: 1px solid black;
 }
-
-.simple_border{
-    border: 1px solid black;
-}
-
-.borde_separador {
-  border-top: 2px solid red;
-}
-
-@media print
-{
-  table { page-break-after:always }
-
-}
-
-
+.simple_border{ border: 1px solid black; }
+.borde_separador { border-top: 2px solid red; }
+@media print { table { page-break-after:always } }
 
 </style>
 </head>
 <body>
 
 <table>
-<? foreach($horas as $hora):
-  $d = get_data($hora);
-?>
+<? foreach($horas as $hora): $d = get_data($hora); ?>
 
   <tr>
     <td><?=$d["persona"]->nombre("AA")?></td>
     <td><?=$d["persona"]->nombre("Nn")?></td>
     <td><?=$d["persona"]->cuil()?></td>
-    <td><?=$d["persona"]->fechaNacimiento()?></td>
+    <td><?=$d["persona"]->fechaNacimiento("d/m/Y")?></td>
     <td><?=$d["suma_horas_catedra"]?></td>    
   </tr>
 

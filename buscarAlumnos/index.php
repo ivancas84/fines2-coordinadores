@@ -23,7 +23,7 @@ require_once("index/menu.html");
 function id_alumnos($search, $dependencia){
   $render = new Render();
   $render->setCondition([
-    ["per_search_","=~", $search],
+    ["per__search","=~", $search],
     ["com_dvi_sed_dependencia","=",$dependencia],
     ["persona","=",true]
   ]);

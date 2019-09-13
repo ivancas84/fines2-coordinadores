@@ -1,0 +1,18 @@
+
+  <?php require_once(PATH_ROOT_SITE . "alumnosRepetidos/formulario.html") ?>
+  <table class="table table-bordered table-hover table-sm border-black">
+    <thead class="thead-light">
+      <tr>
+        <th>COMISION</th>
+        <th>NOMBRE</th>        
+      <tr>
+    </thead>
+    <tbody>
+<?  foreach($nominas as $nomina): $v = EntitySqlo::getInstanceRequire("nomina2")->values($nomina); ?>
+      <tr class="<?=$v['nomina2']->background()?>">
+        <td><?=$v["division"]->numero()?>/<?=$v["comision"]->anio()?><?=$v["comision"]->semestre()?></td>
+        <td><?=$v["persona"]->nombre("AA, Nn")?></td>
+      </tr>
+<?endforeach;?>
+    </tbody>
+  </table>

@@ -24,7 +24,7 @@ require_once("index/menu.html");
 function id_profesores($search, $dependencia){
   $render = new Render();
   $render->setCondition([
-    ["pro_search_", "=~", $search ],
+    ["pro__search", "=~", $search ],
     ["cur_com_dvi_sed_dependencia","=",$dependencia],
     ["profesor","=",true]
   ]);

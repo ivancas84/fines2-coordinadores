@@ -25,9 +25,12 @@ $dependencia = ($dependencia_ == "Todos") ?  $_SESSION["dependencia"] : $depende
 $title = "Alumnos DEA";
 
 $sql = Data::alumnosActivosTodos1RepetidosFiltros($fechaAnio, $fechaSemestre, $clasificacion, $dependencia);
+//echo "<pre>".$sql;
+//echo "<br><br><br>";
 $alumnosRepetidos = Dba::fetchAllColumns($sql, 0);
 
 $sql = Data::nominaActivosTodos1FiltrosSinPersonas($fechaAnio, $fechaSemestre, $clasificacion, $dependencia, $alumnosRepetidos);
+//echo "<pre>".$sql;
 $alumnos = Dba::fetchAll($sql);
 
 require_once(PATH_ROOT_SITE . "alumnosDea/template.html");

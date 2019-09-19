@@ -40,7 +40,7 @@ $cu = EntitySqlo::getInstanceRequire("curso")->values($comision[0]); ?>
                 <?=$to["profesor"]?>
                 <?else:?>
                 <a href="../infoDocente/?id=<?=$to['profesor']->id()?>"><?=$to["profesor"]->nombre("AA, Nn")?></a>
-                <strong><?=$to["toma"]->estadosAbr()?></strong>
+                <strong><?=$to["toma"]->estadosAbr()?> <?=$to["toma"]->fechaEntradaContralor("d/m/y")?></strong>
                 <br><?=$to["profesor"]->telefonos()?>
                 <br><?=$to["profesor"]->email()?>
                 <?endif;?>
@@ -65,7 +65,7 @@ $cu = EntitySqlo::getInstanceRequire("curso")->values($comision[0]); ?>
               <?=$to["profesor"]?>
               <?else:?>
               <a href="../infoDocente/?id=<?=$to['profesor']->id()?>"><?=$to["profesor"]->nombre("AA, Nn")?></a>
-              <strong><?=$to["toma"]->estadosAbr()?></strong>
+              <strong><?=$to["toma"]->estadosAbr()?> <?=$to["toma"]->fechaEntradaContralor("d/m/y")?></strong>
               <br><?=$to["profesor"]->telefonos()?>
               <br><?=$to["profesor"]->email()?>
               <?endif;?>

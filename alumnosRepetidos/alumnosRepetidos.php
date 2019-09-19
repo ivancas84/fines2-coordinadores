@@ -21,12 +21,15 @@ $clasificacion = isset($_GET["clasificacion"]) ? $_GET["clasificacion"] : "Fines
 $dependencia = ($dependencia_ == "Todos") ?  $_SESSION["dependencia"] : $dependencia_;
 $fechaEntradaContralor = isset($_GET["fecha_entrada_contralor"]) ? $_GET["fecha_entrada_contralor"] : false; 
 
-$alumnosCantidad = Data::alumnosRepetidosFiltros($fechaAnio, $fechaSemestre, $clasificacion, $dependencia);
+$alumnosCantidad = Data::alumnosActivosRepetidosFiltros($fechaAnio, $fechaSemestre, $clasificacion, $dependencia);
 if(empty($alumnosCantidad)) die("No hay alumnos duplicados");
 
 $idPersonas = array_unique_key($alumnosCantidad, "persona");
 $idPersonasCantidad = array_combine_key($alumnosCantidad, "persona");
-$nominas = Data::nominaFiltros($fechaAnio, $fechaSemestre, $clasificacion, $dependencia, $idPersonas);
+
+$sql = Data::nominaFiltrosPersonas($fechaAnio, $fechaSemestre, $clasificacion, $dependencia, $idPersonas);
+$nominas = Dba::fetchAll($sql);
+
 $title = "Alumnos repetidos";
 $content = "alumnosRepetidos/alumnosRepetidos.html";
 require_once("index/menu.html"); 

@@ -18,5 +18,8 @@ $fechaEntradaContralor = isset($_GET["fecha_entrada_contralor"]) ? $_GET["fecha_
 
 $sql = Data::contralor($fechaAnio, $fechaSemestre, $clasificacion, $fechaEntradaContralor);
 $rows = Dba::fetchAll($sql);
+$ids = array_unique_key($rows, "id");
 
-require_once("contralorAsignatura/contralor.html");
+echo implode(",",$ids);
+
+//require_once("contralorAsignatura/contralor.html");

@@ -12,10 +12,10 @@ require_once("class/model/Data.php");
 function get_data($row){
   global $total;
 
-  $total += intval($row["_cantidad"]);
+  $total += intval($row["_count"]);
   $v["comision"] = EntityValues::getInstanceRequire("comision"); 
   $v["comision"]->fromArray($row); 
-  $v["cantidad"] = $row["_cantidad"];
+  $v["cantidad"] = $row["_count"];
 
   return $v;
 }
@@ -33,7 +33,7 @@ $dependencia = ($dependencia_ == "Todos") ?  $_SESSION["dependencia"] : $depende
 $coordinador = $_GET["coordinador"];
 
 $render = new RenderAux();
-$render->setAggregate(["_cantidad"]);
+$render->setAggregate(["_count"]);
 $render->setGroup(["anio","semestre","dvi_sed_coordinador"]);
 $render->setCondition([
   ["fecha_anio", "=", $fechaAnio],

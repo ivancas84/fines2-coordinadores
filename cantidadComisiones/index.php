@@ -20,11 +20,11 @@ require_once("function/fecha_semestres.php");
 function get_data($row){
   global $total;
 
-  $total += intval($row["_cantidad"]);
+  $total += intval($row["_count"]);
 
   $v["comision"] = EntityValues::getInstanceRequire("comision");
   $v["comision"]->fromArray($row);
-  $v["cantidad"] = $row["_cantidad"];
+  $v["cantidad"] = $row["_count"];
 
   return $v;
 }
@@ -43,7 +43,7 @@ if(!$fechaAnio || !$fechaSemestre || !$clasificacion) {
 }
 
 $render = new RenderAux();
-$render->setAggregate(["_cantidad"]);
+$render->setAggregate(["_count"]);
 $render->setGroup(["anio","semestre"]);
 $render->setCondition([
   ["fecha_anio", "=", $fechaAnio],

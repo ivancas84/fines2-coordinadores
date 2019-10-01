@@ -73,7 +73,7 @@ function tomas($idCursos){
 
 function cantidad_alumnos($idComisiones){
   $render = new RenderAux();
-  $render->setAggregate(["_cantidad"]);
+  $render->setAggregate(["_count"]);
   $render->setGroup(["comision"]);
   $render->setCondition([
     ["com_id","=",$idComisiones],
@@ -92,7 +92,7 @@ function comision_values($comision) {
   $curso_ = reset($comision);
   $idComision = $curso_["comision"];
   $ret = EntitySqlo::getInstanceRequire("curso")->values($curso_);
-  $ret["alumnos"] = key_exists($idComision, $cantidadAlumnos) ? $cantidadAlumnos[$idComision]["_cantidad"] : 0; 
+  $ret["alumnos"] = key_exists($idComision, $cantidadAlumnos) ? $cantidadAlumnos[$idComision]["_count"] : 0; 
   return $ret;
 }
 

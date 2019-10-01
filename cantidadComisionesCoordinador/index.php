@@ -20,14 +20,14 @@ require_once("function/fecha_semestres.php");
 function get_data($row){
   global $total;
 
-  $total += intval($row["_cantidad"]);
+  $total += intval($row["_count"]);
   $v["persona"] = new IdPersonaValues();
   if($row["dvi_sed_coordinador"]) {
     $sql = EntitySqlo::getInstanceRequire("id_persona")::getInstance()->getAll([$row["dvi_sed_coordinador"]]);
     $v["persona"]->fromArray(Dba::fetchAssoc($sql));
   
   }
-  $v["cantidad"] = $row["_cantidad"];
+  $v["cantidad"] = $row["_count"];
 
   return $v;
 }
@@ -42,7 +42,7 @@ $clasificacion = isset($_GET["clasificacion"]) ? $_GET["clasificacion"] : "Fines
 $dependencia = ($dependencia_ == "Todos") ?  $_SESSION["dependencia"] : $dependencia_;
 
 $render = new RenderAux();
-$render->setAggregate(["_cantidad"]);
+$render->setAggregate(["_count"]);
 $render->setGroup(["dvi_sed_coordinador"]);
 $render->setCondition([
   ["fecha_anio", "=", $fechaAnio],

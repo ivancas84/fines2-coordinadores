@@ -17,7 +17,7 @@ $dependencia = ($dependencia_ == "Todos") ?  $_SESSION["dependencia"] : $depende
 if(empty($fechaInicio = $_GET["fecha_inicio"])) die("Fecha inicio no definida");
 if(empty($fechaFin = $_GET["fecha_fin"])) die("Fecha fin no definida");
 
-$sql = Data::contralor($fechaAnio, $fechaSemestre, $clasificacion, $fechaEntradaContralor);
+$sql = Data::contralorControlFechaAprobada($fechaAnio, $fechaSemestre, $clasificacion, $fechaInicio, $fechaFin);
 $rows = Dba::fetchAll($sql);
 
 require_once("./informe.html");

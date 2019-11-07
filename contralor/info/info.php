@@ -4,7 +4,7 @@
  * Contralor definido en base a los siguientes requerimientos (establecidos por la DEA en marzo de 2019)
  */
 
-require_once("../config/config.php");
+require_once("../../config/config.php");
 require_once("class/model/Data.php");
 require_once("class/model/Values.php");
 
@@ -18,11 +18,10 @@ $fechaEntradaContralor = isset($_GET["fecha_entrada_contralor"]) ? $_GET["fecha_
 $fechaAlta = isset($_GET["fecha_alta"]) ? $_GET["fecha_alta"] : null;
 $id = isset($_GET["id"]) ? true : false;
 $sql = Data::contralor($fechaAnio, $fechaSemestre, $clasificacion, $fechaEntradaContralor, $fechaAlta);
-//echo "<pre>".$sql;
 $rows = Dba::fetchAll($sql);
-if($id) {
-  $ids = array_unique_key($rows, "id");
-  echo "<h1>IDS</h1>";
-  echo implode(",",$ids);
-} 
-require_once("contralorAsignatura/contralor.html");
+
+foreach($rows as $row){
+  $v = EntitySqlo::getInstanceRequire("toma")->values($row);
+  echo "<p>".$v["toma"]->id()." ".$v["profesor"]->nombre(). " ".$v["toma"]->fechaToma("Y-m-d") . " " . $v["toma"]->alta("Y-m-d") . "</p>";
+}
+

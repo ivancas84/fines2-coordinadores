@@ -32,27 +32,15 @@
     </select>
   </div>
 
-  <div class="form-group">
-    <label for="fecha_semestre">Dependencia:</label>
-    <select name="dependencia" class="form-control">
-        <option value="Todos">Todos</option>
-
-      <? foreach(dependencias() as $key => $dep): 
-        $selected = ($key == $dependencia) ? 'selected="selected"' : "";
-      ?>
-        <option value="<?=$key?>" <?=$selected?>><?=$dep?></option>
-      <? endforeach; ?>
-    </select>
-  </div>
 
   <div class="form-group">
     <label for="fecha_semestre">Fecha inicio:</label>
-    <input name="fecha_entrada_contralor" class="form-control" placeholder="YYYY-MM-DD">
+    <input name="fecha_inicio" class="form-control" placeholder="YYYY-MM-DD">
   </div>
 
   <div class="form-group">
     <label for="fecha_semestre">Fecha fin:</label>
-    <input name="fecha_entrada_contralor" class="form-control" placeholder="YYYY-MM-DD">
+    <input name="fecha_fin" class="form-control" placeholder="YYYY-MM-DD">
   </div>
 
 

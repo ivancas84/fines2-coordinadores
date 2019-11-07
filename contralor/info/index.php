@@ -5,7 +5,7 @@ require_once("function/fecha_semestres.php");
 require_once("function/clasificaciones.php");
 require_once("function/dependencias.php");
 
-$content = "contralor/controlarFechas/formulario.html";
+$content = "contralor/info/formulario.html";
 
 $dependencia_ = isset($_GET["dependencia"]) ? $_GET["dependencia"] : "Todos";
 $fechaAnio = isset($_GET["fecha_anio"]) ? $_GET["fecha_anio"] : date("Y");

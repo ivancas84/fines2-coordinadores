@@ -5,7 +5,7 @@
  * Contralor definido en base a los siguientes requerimientos (establecidos por la DEA en marzo de 2019)
  */
 
-require_once("../config/config.php");
+require_once("../../config/config.php");
 require_once("class/model/Dba.php");
 require_once("class/model/Values.php");
 require_once("class/model/Sqlo.php");
@@ -24,7 +24,7 @@ $ids = array_unique_key($tomas, "profesor");
 
 $personas = Dba::getAll("id_persona", $ids);
 
-echo "<pre>";
+$sql = "";
 foreach($personas as $persona) {
   $idp = EntityValues::getInstanceRequire("id_persona", $persona);
 
@@ -48,7 +48,7 @@ foreach($personas as $persona) {
   }
 }
 
-echo $sql;
+echo "<pre>".$sql;
   
   
 

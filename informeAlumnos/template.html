@@ -1,0 +1,68 @@
+
+<table  class="table table-bordered table-hover table-sm border-black">
+    <thead class="thead-light">
+      <tr>
+        <td>Denominacion</td>
+        <td>Nivel</td>
+        <td>Año</td>
+        <td>Turno</td>
+        <td>Division</td>
+        <td>Total</td>
+        <td>Varones</td>
+        <td>Menor de 14</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25 a 29</td>
+        <td>30 a 34</td>
+        <td>35 a 39</td>
+        <td>40 a 44</td>
+        <td>45 a 49</td>
+        <td>50 a 54</td>
+        <td>55 y más</td>
+        <td>Sin edad</td>
+      </tr>
+    </thead>
+    <tbody>
+<? foreach($comisiones as $c):  ?>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td><?=$c["anio"]?></td>
+        <td><?=$c["turno"]?></td>
+        <td><?=$c["nombre_division"]?></td>
+        <td><?=$c["total"]?></td>
+        <td><?=$c["varones"]?></td>
+        <td><?=$c["menos14"]?></td>
+        <td><?=$c["14"]?></td>
+        <td><?=$c["15"]?></td>
+        <td><?=$c["16"]?></td>
+        <td><?=$c["17"]?></td>
+        <td><?=$c["18"]?></td>
+        <td><?=$c["19"]?></td>
+        <td><?=$c["20"]?></td>
+        <td><?=$c["21"]?></td>
+        <td><?=$c["22"]?></td>
+        <td><?=$c["23"]?></td>
+        <td><?=$c["24"]?></td>
+        <td><?=$c["25a29"]?></td>
+        <td><?=$c["30a34"]?></td>
+        <td><?=$c["35a39"]?></td>
+        <td><?=$c["40a44"]?></td>
+        <td><?=$c["45a49"]?></td>
+        <td><?=$c["50a54"]?></td>
+        <td><?=$c["55mas"]?></td>
+        <td><?=$c["sin_edad"]?></td>
+      </tr>
+<? endforeach; ?>
+    </tbody>
+  </table>  

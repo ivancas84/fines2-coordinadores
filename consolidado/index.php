@@ -52,8 +52,8 @@ function cursos($fechaAnio, $fechaSemestre, $dependencia, $clasificacion){
   ]);
  
   $render->setOrder(["com_dvi_sed_numero" => "ASC", "com_anio" => "ASC", "com_semestre" => "ASC"]);
-
   $sql = EntitySqlo::getInstanceRequire("curso")->all($render);
+
   return Dba::fetchAll($sql);
 }
 

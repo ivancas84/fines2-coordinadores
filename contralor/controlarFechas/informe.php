@@ -22,10 +22,14 @@ if(empty($fechaInicio = $_GET["fecha_inicio"])) die("Fecha inicio no definida");
 if(empty($fechaFin = $_GET["fecha_fin"])) die("Fecha fin no definida");
 
 $sql = Data::contralorControlFechaAprobada($fechaAnio, $fechaSemestre, $clasificacion, $fechaInicio, $fechaFin);
+<<<<<<< HEAD
 $tomasAprobadas = Dba::fetchAll($sql);
 
 $sql = Data::contralorControlFechaRenuncia($fechaAnio, $fechaSemestre, $clasificacion);
 $tomasRenuncia  = Dba::fetchAll($sql);
+=======
+$rows = Dba::fetchAll($sql);
+>>>>>>> 99712be236efc2af15f6b04c815a9d76527404c0
 
 if(count($tomasAprobadas)){
 $idsAprobadas = array_unique_key($tomasAprobadas, "id");

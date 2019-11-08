@@ -18,6 +18,7 @@ $render->setCondition([
   ["com_fecha_semestre", "=", "2"],
   ["activo", "=", true],
 ]);
+$render->setOrder(["com_dvi_sed_numero"=>"ASC", "com_dvi_serie" =>"ASC", "com_anio"=>"ASC", "com_semestre"=>"ASC"]);
 
 $sqlo = EntitySqlo::getInstanceRequire("nomina2");
 $sql = $sqlo->all($render);
@@ -27,13 +28,20 @@ $comisionAlumnos = array_group_value($alumnos, "comision");
 
 $comisiones = [];
 
+
+$totalPorOrientacion = [];
+$totalAlumnos = 0;
+$totalVarones = 0;
+
 foreach($comisionAlumnos as $ca) {
   $c = [];
   $c["total"] = count($ca);
   $c["anio"] = $ca[0]["com_anio"];
   $c["turno"] = $ca[0]["com_dvi_turno"];
+
   
   $c["nombre_division"] =  $ca[0]["com_dvi_sed_numero"].$ca[0]["com_dvi_serie"].$ca[0]["com_anio"].$ca[0]["com_semestre"];
+  $c["orientacion"] = $ca[0]["com_dvi_pla_orientacion"];
   
   $varones = 0;
   $menos14 = 0;
@@ -56,8 +64,11 @@ foreach($comisionAlumnos as $ca) {
   $e50a54 = 0;
   $e55mas = 0;
   $sinEdad = 0;
+
+  if(!key_exists($c["orientacion"], $totalPorOrientacion)) $totalPorOrientacion[$c["orientacion"]] = 0;
   
   foreach($ca as $alumno){
+
     if($alumno["per_genero"] == "Masculino") $varones++;
     $birthdate = DateTime::createFromFormat("Y-m-d", $alumno["per_fecha_nacimiento"]);
     if($birthdate) {
@@ -86,30 +97,35 @@ foreach($comisionAlumnos as $ca) {
     } else {
       $sinEdad++;
     }
+
+    
   }
 
   $c["varones"] = $varones;
-  $c["menos14"] = $menos14;
-  $c["14"] = $e14;
-  $c["15"] = $e15;
-  $c["16"] = $e16;
-  $c["17"] = $e17;
-  $c["18"] = $e18;
-  $c["19"] = $e19;
-  $c["20"] = $e20;
-  $c["21"] = $e21;
-  $c["22"] = $e22;
-  $c["23"] = $e23;
-  $c["24"] = $e24;
-  $c["25a29"] = $e25a29;
-  $c["30a34"] = $e30a34;
-  $c["35a39"] = $e35a39;
-  $c["40a44"] = $e40a44;
-  $c["45a49"] = $e45a49;
-  $c["50a54"] = $e50a54;
-  $c["55mas"] = $e55mas;
-  $c["sin_edad"] = $sinEdad;
+  $c["menos14"] = $menos14 ?: "";
+  $c["14"] = $e14 ?: "";
+  $c["15"] = $e15 ?: "";
+  $c["16"] = $e16 ?: "";
+  $c["17"] = $e17 ?: "";
+  $c["18"] = $e18 ?: "";
+  $c["19"] = $e19 ?: "";
+  $c["20"] = $e20 ?: "";
+  $c["21"] = $e21 ?: "";
+  $c["22"] = $e22 ?: "";
+  $c["23"] = $e23 ?: "";
+  $c["24"] = $e24 ?: "";
+  $c["25a29"] = $e25a29 ?: "";
+  $c["30a34"] = $e30a34 ?: "";
+  $c["35a39"] = $e35a39 ?: "";
+  $c["40a44"] = $e40a44 ?: "";
+  $c["45a49"] = $e45a49 ?: "";
+  $c["50a54"] = $e50a54 ?: "";
+  $c["55mas"] = $e55mas ?: "";
+  $c["sin_edad"] = $sinEdad ?: "";
 
+  $totalPorOrientacion[$c["orientacion"]] += $c["total"];
+  $totalAlumnos +=  $c["total"];
+  $totalVarones +=  $c["varones"];
    
   array_push($comisiones, $c);
   

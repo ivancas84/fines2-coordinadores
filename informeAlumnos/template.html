@@ -8,6 +8,7 @@
         <td>Turno</td>
         <td>Division</td>
         <td>Total</td>
+        <td>Orientación</td>
         <td>Varones</td>
         <td>Menor de 14</td>
         <td>14</td>
@@ -40,6 +41,7 @@
         <td><?=$c["anio"]?></td>
         <td><?=$c["turno"]?></td>
         <td><?=$c["nombre_division"]?></td>
+        <td><?=$c["orientacion"]?></td>
         <td><?=$c["total"]?></td>
         <td><?=$c["varones"]?></td>
         <td><?=$c["menos14"]?></td>
@@ -66,3 +68,12 @@
 <? endforeach; ?>
     </tbody>
   </table>  
+
+  $totalPorOrientacion[$c["orientacion"]] += $c["total"];
+
+  <br><br>
+  <p>TOTAL ALUMNOS = <?=$totalAlumnos?></p>
+  <p>TOTAL VARONES = <?=$totalVarones?></p>
+  <? foreach($totalPorOrientacion as $orientacion => $total): ?>
+  <p>TOTAL <?=$orientacion?> = <?=$total?></p>
+  <? endforeach; ?>

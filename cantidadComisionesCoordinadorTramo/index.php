@@ -2,10 +2,10 @@
 
 require_once("../config/config.php");
 require_once("class/model/Values.php");
-require_once("class/model/Dba.php");
-require_once("class/Filter.php");
+require_once("class/controller/Dba.php");
+require_once("class/tools/Filter.php");
 require_once("function/formatDate.php");
-require_once("class/SpanishDateTime.php");
+require_once("class/tools/SpanishDateTime.php");
 require_once("class/model/values/idPersona/IdPersona.php");
 require_once("class/model/Data.php");
 

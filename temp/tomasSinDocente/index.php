@@ -2,7 +2,7 @@
 
 require_once("../../config/config.php");
 require_once("class/model/Render.php");
-require_once("class/model/Dba.php");
+require_once("class/controller/Dba.php");
 
 $render = new Render();
 $render->setCondition([

@@ -3,7 +3,7 @@
 require_once("../config/config.php");
 require_once("class/model/Data.php");
 require_once("class/model/Values.php");
-require_once("class/model/Transaction.php");
+require_once("class/controller/Transaction.php");
 
 require_once("function/array_unique_key.php");
 require_once("function/array_combine_keys.php");

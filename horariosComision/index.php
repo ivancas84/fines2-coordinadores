@@ -1,6 +1,6 @@
 <?php
 require_once("../config/config.php");
-require_once("class/model/Dba.php");
+require_once("class/controller/Dba.php");
 require_once("class/model/Sqlo.php");
 require_once("class/model/Values.php");
 require_once("function/array_combine_key.php");

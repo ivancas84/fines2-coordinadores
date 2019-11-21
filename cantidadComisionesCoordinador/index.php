@@ -21,11 +21,10 @@ function get_data($row){
   global $total;
 
   $total += intval($row["_count"]);
-  $v["persona"] = new IdPersonaValues();
+  $v["persona"] = EntityValues::getInstanceRequire("id_persona");
   if($row["dvi_sed_coordinador"]) {
     $sql = EntitySqlo::getInstanceRequire("id_persona")::getInstance()->getAll([$row["dvi_sed_coordinador"]]);
-    $v["persona"]->fromArray(Dba::fetchAssoc($sql));
-  
+    $v["persona"]->_fromArray(Dba::fetchAssoc($sql));
   }
   $v["cantidad"] = $row["_count"];
 

@@ -16,12 +16,12 @@
 $co = comision_values($comision);
 $cu = EntitySqlo::getInstanceRequire("curso")->values($comision[0]); ?>
         <tr>
-            <td rowspan="5">
+            <td rowspan="<?=count($comision)?>">
               <p><strong><?=$co["sede"]->numero()?></strong> <?=$co["sede"]->nombre()?></p>
               <p><strong>Domicilio:</strong> <?=$co["domicilio"]->label()?></p>              
               <p><strong>Coordinador:</strong> <?if($co["coordinador"]) echo $co["coordinador"]->nombrePrincipal()?></p>
             </td>
-            <td rowspan="5">
+            <td rowspan="<?=count($comision)?>">
               <p><strong><?=$co["division"]->numero()?>/<?=$co["comision"]->tramo()?></strong></p>
               <p><?=$co["plan"]->orientacion()?></p>
               <p><?=$co["plan"]->resolucion()?></p>

@@ -11,11 +11,13 @@ require_once("function/array_group_value.php");
 // $comision = isset($_GET["id"]) ? $_GET["id"] : null;
 // if(empty($comision)) echo "LA COMISION NO EXISTE";
 
+$fechaSemestre = isset($_GET["fecha_semestre"]) ? $_GET["fecha_semestre"] : 2 ;
 
 $render = new Render();
 $render->setCondition([
   ["com_fecha_anio", "=", "2019"],
-  ["com_fecha_semestre", "=", "2"],
+  ["com_fecha_semestre", "=", $fechaSemestre],
+  ["com_autorizada", "=", true],
   ["activo", "=", true],
 ]);
 $render->setOrder(["com_dvi_sed_numero"=>"ASC", "com_dvi_serie" =>"ASC", "com_anio"=>"ASC", "com_semestre"=>"ASC"]);

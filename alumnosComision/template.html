@@ -28,7 +28,7 @@
               <p><strong>DNI: </strong><?=$a["persona"]->numeroDocumento();?></p>
             </td>
             <td>
-              <p><strong>Nació: </strong><?=$a["persona"]->fechaNacimiento();?></p>
+              <p><strong>Nació: </strong><?=$a["persona"]->fechaNacimiento("d/m/Y");?></p>
               <p><strong>Tel: </strong><?=$a["persona"]->telefonos();?></p>
             </td>
             <td><?=$a['nomina2']->fotocopiaDocumento()?></td>

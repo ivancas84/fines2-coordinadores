@@ -23,7 +23,7 @@ function get_data($row){
   $total += intval($row["_count"]);
 
   $v["comision"] = EntityValues::getInstanceRequire("comision");
-  $v["comision"]->fromArray($row);
+  $v["comision"]->_fromArray($row);
   $v["cantidad"] = $row["_count"];
 
   return $v;

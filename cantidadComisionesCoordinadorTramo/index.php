@@ -6,7 +6,6 @@ require_once("class/controller/Dba.php");
 require_once("class/tools/Filter.php");
 require_once("function/formatDate.php");
 require_once("class/tools/SpanishDateTime.php");
-require_once("class/model/values/idPersona/IdPersona.php");
 require_once("class/model/Data.php");
 
 function get_data($row){
@@ -14,7 +13,7 @@ function get_data($row){
 
   $total += intval($row["_count"]);
   $v["comision"] = EntityValues::getInstanceRequire("comision"); 
-  $v["comision"]->fromArray($row); 
+  $v["comision"]->_fromArray($row); 
   $v["cantidad"] = $row["_count"];
 
   return $v;
@@ -49,8 +48,8 @@ $render->setOrder(["tramo"=>"asc"]);
 $sql = EntitySqlo::getInstanceRequire("comision")->advanced($render);
 $rows = Dba::fetchAll($sql);
 $sql = EntitySqlo::getInstanceRequire("id_persona")::getInstance()->getAll([$coordinador]);
-$persona= new IdPersonaValues();
-$persona->fromArray(Dba::fetchAssoc($sql));
+$persona= EntityValues::getInstanceRequire("id_persona");
+$persona->_fromArray(Dba::fetchAssoc($sql));
 $total = 0;
 
 $content = "cantidadComisionesCoordinadorTramo/template.html";

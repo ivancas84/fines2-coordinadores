@@ -27,7 +27,7 @@
 <? endif; ?>
 
 <? foreach($periodos as $periodo => $nominas): $p = EntitySqlo::getInstanceRequire("nomina2")->values($nominas[0]); ?>
-  <h3>PERIODO: <?=$p["comision"]->fechaAnio()?>-<?=$p["comision"]->fechaSemestre()?></h3>
+  <h3>PERIODO: <?=$p["comision"]->fechaAnio("Y")?>-<?=$p["comision"]->fechaSemestre()?></h3>
   <table class="table table-bordered table-hover table-sm border-black">
       <thead class="thead-light">
         <tr>

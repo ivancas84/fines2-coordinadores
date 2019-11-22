@@ -12,7 +12,7 @@
   <td><?=$i+1?></td>
   <td><?=$h["asignatura"]->nombre()?> (<?=$h["carga_horaria"]->horasCatedra()?> / <?=$h["carga_horaria"]->horasReloj()?>)</td>
   <td><?=$h["dia"]->dia()?></td>
-  <td><?=$h["horario"]->horaInicio("h:i")?> a <?=$h["horario"]->horaFin("h:i")?></td>
+  <td><?=$h["horario"]->horaInicio("H:i")?> a <?=$h["horario"]->horaFin("H:i")?></td>
   <td><a href="../infoDocente/?id=<?=$h['profesor']->id()?>"><?=$h["profesor"]->nombre("AA, Nn")?></a></td>
     <td><?=$h["profesor"]->telefonos()?></td>
 

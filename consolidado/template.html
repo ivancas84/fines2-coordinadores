@@ -43,6 +43,7 @@ $cu = EntitySqlo::getInstanceRequire("curso")->values($comision[0]); ?>
                 <strong><?=$to["toma"]->estadosAbr()?> <?=$to["toma"]->fechaEntradaContralor("d/m/y")?></strong>
                 <br><?=$to["profesor"]->telefonos()?>
                 <br><?=$to["profesor"]->email()?>
+                <br><?=$to["toma"]->observaciones()?>
                 <?endif;?>
               
                 </p>  
@@ -68,6 +69,7 @@ $cu = EntitySqlo::getInstanceRequire("curso")->values($comision[0]); ?>
               <strong><?=$to["toma"]->estadosAbr()?> <?=$to["toma"]->fechaEntradaContralor("d/m/y")?></strong>
               <br><?=$to["profesor"]->telefonos()?>
               <br><?=$to["profesor"]->email()?>
+              <br><?=$to["toma"]->observaciones()?>
               <?endif;?>
             
               </p>  

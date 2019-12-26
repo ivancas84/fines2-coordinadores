@@ -36,7 +36,7 @@ foreach($personas as $persona) {
   }
 
   $cuil = $idp->_calcularCuil();
-  if($idp->_isEmptyValue($idp->cuil())){
+  if(Validation::is_empty($idp->cuil())){
     echo "<br>CUIL VACIO: SE DEFINIRA SQL PARA ACTUALIZAR " . $idp->nombres() . " ". $idp->apellidos() . "<br>";
 
     $idp->setCuil($cuil);

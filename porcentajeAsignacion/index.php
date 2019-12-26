@@ -30,7 +30,7 @@ $idCursos = array_unique_key($cursos, "id");
 $asignaturas = array_unique_combine($cursos, "ch_asi_id", "ch_asi_nombre");
 
 $render = new RenderAux();
-$render->setAggregate(["_cantidad"]);
+$render->setAggregate(["_count"]);
 $render->setGroup(["ch_asi_id"]);
 $render->setCondition([ "id","=", $idCursos]);
 
@@ -65,7 +65,7 @@ function cursos($fechaAnio, $fechaSemestre, $dependencia, $clasificacion){
 
 function cursos_cantidad($idCursos){
   $render = new RenderAux();
-  $render->setAggregate(["_cantidad"]);
+  $render->setAggregate(["_count"]);
   $render->setGroup(["ch_asi_id"]);
   $render->setCondition([ "id","=", $idCursos]);
 
@@ -75,7 +75,7 @@ function cursos_cantidad($idCursos){
 
 function cursos_aprobados($idCursos){
   $render = new RenderAux();
-  $render->setAggregate(["_cantidad"]);
+  $render->setAggregate(["_count"]);
   $render->setGroup(["ch_asi_id"]);
   $render->setCondition([
     [ "id","=", $idCursos],
@@ -90,7 +90,7 @@ function cursos_aprobados($idCursos){
 
 function cursos_faltantes($idCursos){
   $render = new RenderAux();
-  $render->setAggregate(["_cantidad"]);
+  $render->setAggregate(["_count"]);
   $render->setGroup(["ch_asi_id"]);
   $render->setCondition([
     [ "id","=", $idCursos],
@@ -107,8 +107,8 @@ function imprimir_aprobado($id){
   global $total_aprobados;
 
   if(!key_exists($id, $cursosAprobados)) return 0;
-  $total_aprobados += intval($cursosAprobados[$id]["_cantidad"]);
-  return $cursosAprobados[$id]["_cantidad"];
+  $total_aprobados += intval($cursosAprobados[$id]["_count"]);
+  return $cursosAprobados[$id]["_count"];
 }
 
 function imprimir_faltante($id){
@@ -116,15 +116,15 @@ function imprimir_faltante($id){
   global $total_faltantes;
 
   if(!key_exists($id, $cursosFaltantes)) return 0;
-  $total_faltantes += intval($cursosFaltantes[$id]["_cantidad"]);
-  return $cursosFaltantes[$id]["_cantidad"];
+  $total_faltantes += intval($cursosFaltantes[$id]["_count"]);
+  return $cursosFaltantes[$id]["_count"];
 }
 
 function imprimir_cantidad($id){
   global $cursosCantidad;
   global $total_asignaturas;
 
-  $total_asignaturas += intval($cursosCantidad[$id]["_cantidad"]);
-  return $cursosCantidad[$id]["_cantidad"];
+  $total_asignaturas += intval($cursosCantidad[$id]["_count"]);
+  return $cursosCantidad[$id]["_count"];
 
 }
